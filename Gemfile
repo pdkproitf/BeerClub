@@ -34,10 +34,29 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+# ****************************************
+# rails api                             *
+gem 'grape' #
+# create grape document                 *
+gem 'grape-swagger' #
+# create swagger router                 *
+gem 'grape-swagger-rails' #
+# => disables the security feature of   *
+# => strong_params at the model         *
+gem 'hashie-forbidden_attributes' #
+# ****************************************
+
+# => using for login                    *
+gem 'devise_token_auth' #
+# => using for authenticate             *
+gem 'omniauth' #
+# => using for get JSON  whren your API *
+# => and client on different domain     *
+gem 'rack-cors', require: 'rack/cors' #
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+  gem 'pry-byebug'
 end
 
 group :development do
