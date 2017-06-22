@@ -4,7 +4,6 @@ module AuthenticationHelper
     end
 
     def current_user
-      binding.pry
         client_id = request.headers['Client']
         token = request.headers['Access-Token']
 
