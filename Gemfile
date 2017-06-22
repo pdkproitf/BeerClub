@@ -46,6 +46,15 @@ gem 'grape-swagger-rails' #
 gem 'hashie-forbidden_attributes' #
 # ****************************************
 
+# ****************************************
+# For Grape::Entity ( https://github.com/ruby-grape/grape-entity )
+gem 'grape-swagger-entity'
+# For representable ( https://github.com/apotonick/representable )
+gem 'grape-swagger-representable'           #
+# ****************************************
+# Config helps you easily manage environment specific settings in an easy and usable manner.
+gem 'config'
+
 # => using for login                    *
 gem 'devise_token_auth' #
 # => using for authenticate             *

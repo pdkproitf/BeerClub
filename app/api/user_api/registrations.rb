@@ -7,7 +7,7 @@ module UserApi
 
     resource :users do
       # => /api/v1/users/
-      desc 'create new user' # , entity: Entities::ProductWithRoot
+      desc 'create new user', using: API::Entities::Users, as: :responses
       params do
         requires :user, type: Hash do
           requires :name, type: String, desc: 'Name'
