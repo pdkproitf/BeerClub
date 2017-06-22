@@ -1,29 +1,28 @@
 module AuthenticationHelper
     def authenticated!
         error!(I18n.t('Unauthor'), 401) unless current_member
-        error!(I18n.t('member.errors.archived'), 401) unless current_member.actived?
     end
 
     def current_user
-        email = request.headers['Uid']
+      binding.pry
         client_id = request.headers['Client']
         token = request.headers['Access-Token']
 
-        current_user = User.where("tokens ? '#{client_id}'").first
+        current_user = User.find_by("tokens ? '#{client_id}'")
 
         return current_user unless current_user.nil? || !current_user.valid_token?(token, client_id)
         current_user = nil
     end
 
     def current_member
-        company_domain = request.headers['Company-Domain']
+        bar_name = request.headers['Bar-Name']
         user = current_user
         return nil unless user
 
-        company = user.companies.find_by_domain(company_domain)
-        return nil unless company
+        bar = user.bars.find_by_name(bar_name)
+        return nil unless bar
 
-        @current_member = user.members.find_by_company_id(company.id)
+        @current_member = user.members.find_by_bar_id(bar.id)
     end
 
     def return_message(status, data = nil)
