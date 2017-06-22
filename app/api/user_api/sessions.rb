@@ -36,7 +36,7 @@ module UserApi
 
         resource :users do
             # => /api/v1/users/
-            desc "sign-in" #, entity: Entities::ProductWithRoot
+            desc "sign-in", entity: Entities::UserEntities::UserLogins
             params do
                 requires :user, type: Hash do
                     requires :email, type: String, desc: "User's Email"
