@@ -17,8 +17,8 @@ module CategoryApi
         end
       end
       post '/' do
-        @current_member.bars.categories.create!(name: params[:category][:name])
-        return_message(I18n.t('success'), 201)
+        @category = @current_member.bar.categories.create!(name: params[:category][:name])
+        return_message(I18n.t('success'), CategorySerializer.new(@category))
       end
     end
   end

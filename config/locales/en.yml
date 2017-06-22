@@ -24,3 +24,4 @@ en:
   success: 'Success'
   already:  "%{content} already exist"
   not_found: "%{title} not found"
+  Unauthor: "Unauthorized"
