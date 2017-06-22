@@ -5,7 +5,8 @@ module RegistrationsHelper
   end
 
   def create_member
-    @company.members.new(user_id: @resource.id, role_id: @role.id)
+    @role = Role.find_or_create_by(name: 'Admin')
+    @bar.members.new(user_id: @resource.id, role_id: @role.id)
   end
 
   def save_user
@@ -20,12 +21,12 @@ module RegistrationsHelper
       }
       @resource.save!
 
+      @member = create_member
+      Member.transaction do
+        @member.save!
+      end
+
       return_message(I18n.t('success'), @resource)
     end
-  end
-
-  def update_params
-    ActionController::Parameters.new(params).require(:user)
-    .permit(:first_name, :last_name, :image)
   end
 end

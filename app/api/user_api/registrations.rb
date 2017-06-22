@@ -10,6 +10,7 @@ module UserApi
       desc 'create new user', entity: Entities::UserEntities::Users
       params do
         requires :user, type: Hash do
+          requires :bar_name, type: String, desc: 'Name of a Bar'
           requires :name, type: String, desc: 'Name'
           requires :email, type: String, desc: "User's Email"
           requires :password, type: String, desc: 'password'
@@ -19,9 +20,13 @@ module UserApi
       post '/' do
         @resource = User.new(create_params)
         @resource.provider = 'email'
-        # @role = Role.find_or_create_by(name: 'Admin')
-        User.transaction do
-          save_user
+
+        @bar = Bar.new(name: params[:user][:bar_name])
+        Bar.transaction do
+          User.transaction do
+            @bar.save!
+            save_user
+          end
         end
       end
     end

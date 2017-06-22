@@ -3,6 +3,7 @@ module Entities
     class Users < Grape::Entity
       format_with(:iso_timestamp) { |dt| dt.iso8601 }
 
+      expose :bar_name, documentation: { type: 'string', values: ['Ace of Clubs'] }
       expose :name, documentation: { type: 'string', values: ['Ryan Pham'] }
       expose  :email, documentation: { type: 'string', values: ['ryanpham@gmail.com'] }
       expose  :password, documentation: { type: 'string', values: ['ryanpham'] }
