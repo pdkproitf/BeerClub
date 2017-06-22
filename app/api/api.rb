@@ -12,6 +12,8 @@ module API
     mount UserApi::Registrations
     mount UserApi::Sessions
 
+    mount CategoryApi::Categories
+
     add_swagger_documentation(
       api_version: 'v1',
       hide_doccumentation_path: false,
