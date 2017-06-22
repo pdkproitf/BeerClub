@@ -3,6 +3,14 @@ require 'grape-swagger'
 module API
   class Root < Grape::API
     format :json
+    formatter :json, Grape::Formatter::ActiveModelSerializers
+
+    use ApiErrorHandler
+
+    helpers AuthenticationHelper
+
+    mount UserApi::Registrations
+    mount UserApi::Sessions
 
     add_swagger_documentation(
       api_version: 'v1',

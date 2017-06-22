@@ -8,8 +8,8 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.4'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use postgresql as the database for Active Record
+gem 'pg', '~> 0.21.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -46,6 +46,15 @@ gem 'grape-swagger-rails' #
 gem 'hashie-forbidden_attributes' #
 # ****************************************
 
+# ****************************************
+# For Grape::Entity ( https://github.com/ruby-grape/grape-entity )
+gem 'grape-swagger-entity'
+# For representable ( https://github.com/apotonick/representable )
+gem 'grape-swagger-representable'           #
+# ****************************************
+# Config helps you easily manage environment specific settings in an easy and usable manner.
+gem 'config'
+
 # => using for login                    *
 gem 'devise_token_auth' #
 # => using for authenticate             *
@@ -53,6 +62,10 @@ gem 'omniauth' #
 # => using for get JSON  whren your API *
 # => and client on different domain     *
 gem 'rack-cors', require: 'rack/cors' #
+
+gem 'grape-active_model_serializers'
+
+gem 'swagger-blocks'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
