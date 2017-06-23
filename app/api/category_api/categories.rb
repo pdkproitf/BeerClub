@@ -3,7 +3,40 @@ module CategoryApi
     prefix :api
     version 'v1', using: :accept_version_header
 
+    helpers do
+      def current_bar
+        if params[:bar_name]
+          bar = Bar.find_by_name(params[:bar_name])
+          error!(I18n.t('not_found', title: 'Bar'), 404) if bar.blank?
+          bar
+        else
+          authenticated!
+          @current_member.bar
+        end
+      end
+    end
+
     resource :categories do
+
+      desc 'get a category' #, entity: Entities::UserEntities::Users
+      params do
+        optional :bar_name, type: String, desc: 'Name of Bar if you have yet login'
+      end
+      get ':id' do
+        category = current_bar.categories.find(params[:id])
+        error!(I18n.t('not_found', title: 'Category'), 404) if category.blank?
+
+        return_message(I18n.t('success'), CategorySerializer.new(category))
+      end
+
+      desc 'get all category' #, entity: Entities::UserEntities::Users
+      params do
+        optional :bar_name, type: String, desc: 'Name of Bar if you have yet login'
+      end
+      get do
+        category = current_bar.categories.map { |e| CategorySerializer.new(e) }
+        return_message(I18n.t('success'), category)
+      end
 
       before do
         authenticated!
@@ -18,19 +51,6 @@ module CategoryApi
       post '/' do
         category = @current_member.bar.categories.create!(name: params[:category][:name])
         return_message(I18n.t('success'), CategorySerializer.new(category))
-      end
-
-      desc 'get a category' #, entity: Entities::UserEntities::Users
-      get ':id' do
-        category = @current_member.bar.categories.find(params[:id])
-        error!(I18n.t('not_found', title: 'Category'), 404) if category.blank?
-        return_message(I18n.t('success'), CategorySerializer.new(category))
-      end
-
-      desc 'get all category' #, entity: Entities::UserEntities::Users
-      get '' do
-        category = @current_member.bar.categories.map { |e| CategorySerializer.new(e) }
-        return_message(I18n.t('success'), category)
       end
 
       desc 'update a category' #, entity: Entities::UserEntities::Users
