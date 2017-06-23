@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  passport: one
+  beer: one
+
+two:
+  passport: two
+  beer: two

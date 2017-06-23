@@ -13,6 +13,7 @@ module API
 
     mount CategoryApi::Categories
     mount BeerApi::Beers
+    mount PassportApi::Passports
 
     add_swagger_documentation(
       api_version: 'v1',

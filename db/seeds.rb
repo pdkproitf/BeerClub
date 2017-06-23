@@ -8,3 +8,7 @@
 
 Role.create(name: 'Admin')
 Role.create(name: 'Customer')
+
+100.times do |index|
+  Passport.create!(name: "Passport #{index}")
+end
