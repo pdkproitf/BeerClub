@@ -19,8 +19,10 @@ module UserApi
       end
       post '/' do
         if params[:user][:bar_name]
+          # create account admin with new bar
           @bar = Bar.new(name: params[:user][:bar_name])
         else
+          # create account admin with current bar
           authenticated!
           @bar = @current_member.bar
         end

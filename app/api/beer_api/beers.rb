@@ -126,16 +126,16 @@ module BeerApi
         return_message(I18n.t('success'), BeerSerializer.new(beer))
       end
 
-      desc 'delete a beer'
-      delete ':id' do
-        beer = @current_member.bar.beers.find(params[:id])
-        error!(I18n.t('not_found', title: 'Category'), 404) if beer.blank?
-
-        beer.destroy!
-
-        status 200
-        return_message(I18n.t('success'))
-      end
+      # desc 'delete a beer'
+      # delete ':id' do
+      #   beer = @current_member.bar.beers.find(params[:id])
+      #   error!(I18n.t('not_found', title: 'Category'), 404) if beer.blank?
+      #
+      #   beer.destroy!
+      #
+      #   status 200
+      #   return_message(I18n.t('success'))
+      # end
     end
   end
 end
