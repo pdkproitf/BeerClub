@@ -25,7 +25,6 @@ module CategoryApi
       get ':id' do
         category = current_bar.categories.find(params[:id])
         error!(I18n.t('not_found', title: 'Category'), 404) if category.blank?
-
         return_message(I18n.t('success'), CategorySerializer.new(category))
       end
 
@@ -71,7 +70,6 @@ module CategoryApi
       put ':id/archive' do
         category = @current_member.bar.categories.find(params[:id])
         error!(I18n.t('not_found', title: 'Category'), 404) if category.blank?
-
         error!(I18n.t('already_archived', content: "Category")) if category.archived
 
         category.update_attributes!(archived: true)
@@ -82,7 +80,6 @@ module CategoryApi
       put ':id/unarchive' do
         category = @current_member.bar.categories.find(params[:id])
         error!(I18n.t('not_found', title: 'Category'), 404) if category.blank?
-
         error!(I18n.t('not_archived', content: "Category")) unless category.archived
 
         category.update_attributes!(archived: false)
@@ -93,11 +90,9 @@ module CategoryApi
       delete ':id' do
         category = @current_member.bar.categories.find(params[:id])
         error!(I18n.t('not_found', title: 'Category'), 404) if category.blank?
-
         error!(I18n.t('beer_using'), 406) if category.using?
 
         category.destroy!
-
         status 200
         return_message(I18n.t('success'))
       end
