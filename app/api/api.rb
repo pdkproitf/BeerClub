@@ -4,7 +4,6 @@ module API
   class Root < Grape::API
     format :json
     formatter :json, Grape::Formatter::ActiveModelSerializers
-
     use ApiErrorHandler
 
     helpers AuthenticationHelper
@@ -13,6 +12,7 @@ module API
     mount UserApi::Sessions
 
     mount CategoryApi::Categories
+    mount BeerApi::Beers
 
     add_swagger_documentation(
       api_version: 'v1',

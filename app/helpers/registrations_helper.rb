@@ -1,7 +1,7 @@
 module RegistrationsHelper
   def create_params
     ActionController::Parameters.new(params).require(:user)
-    .permit(:name, :email, :password, :password_confirmation)
+      .permit(:name, :email, :password, :password_confirmation)
   end
 
   def create_member
