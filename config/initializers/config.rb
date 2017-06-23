@@ -1,7 +1,7 @@
 Config.setup do |config|
   # Name of the constant exposing loaded settings
   config.const_name = 'Settings'
-  Config.load_and_set_settings(Rails.root + "./config/settings.yml")
+  config.load_and_set_settings(Rails.root + "./config/settings.yml")
   # Ability to remove elements of the array set in earlier loaded settings file. For example value: '--'.
   #
   # config.knockout_prefix = nil
