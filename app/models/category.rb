@@ -1,6 +1,5 @@
 class Category < ApplicationRecord
-  has_many :bar_categories
-  has_many :bars, through: :bar_categories
+  belongs_to :bar
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, length: { minimum: Settings.name_min_length }
 end

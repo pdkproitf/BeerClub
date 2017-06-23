@@ -23,5 +23,8 @@ en:
   hello: "Hello world"
   success: 'Success'
   already:  "%{content} already exist"
+  already_archived:  "%{content} already archived"
+  not_archived:  "%{content} doesn't archived"
   not_found: "%{title} not found"
   Unauthor: "Unauthorized"
+  beer_using: "Category constraint beers are using. You should archived "

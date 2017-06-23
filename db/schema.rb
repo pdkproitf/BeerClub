@@ -10,19 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622142025) do
+ActiveRecord::Schema.define(version: 20170623025926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "bar_categories", force: :cascade do |t|
-    t.integer  "bar_id"
-    t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["bar_id"], name: "index_bar_categories_on_bar_id", using: :btree
-    t.index ["category_id"], name: "index_bar_categories_on_category_id", using: :btree
-  end
 
   create_table "bars", force: :cascade do |t|
     t.string   "name"
@@ -32,8 +23,11 @@ ActiveRecord::Schema.define(version: 20170622142025) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "archived",   default: false
+    t.integer  "bar_id"
+    t.index ["bar_id"], name: "index_categories_on_bar_id", using: :btree
   end
 
   create_table "members", force: :cascade do |t|
@@ -82,8 +76,7 @@ ActiveRecord::Schema.define(version: 20170622142025) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   end
 
-  add_foreign_key "bar_categories", "bars"
-  add_foreign_key "bar_categories", "categories"
+  add_foreign_key "categories", "bars"
   add_foreign_key "members", "bars"
   add_foreign_key "members", "roles"
   add_foreign_key "members", "users"

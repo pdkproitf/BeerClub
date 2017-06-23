@@ -57,9 +57,9 @@ module UserApi
           create_client_id_and_token
           return_message(I18n.t("devise.sessions.signed_in"), data_login)
         elsif @resource and not (!@resource.respond_to?(:active_for_authentication?) or @resource.active_for_authentication?)
-          error!(I18n.t("devise.sessions.not_confirmed", email: @resource.email), 500)
+          error!(I18n.t("devise_token_auth.sessions.not_confirmed", email: @resource.email), 500)
         else
-          error!(I18n.t("devise.sessions.bad_credentials"), 500)
+          error!(I18n.t("devise_token_auth.sessions.bad_credentials"), 500)
         end
       end
 
