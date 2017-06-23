@@ -9,6 +9,18 @@ module RegistrationsHelper
     @bar.members.new(user_id: @resource.id, role_id: @role.id)
   end
 
+  def build_new_user
+    @resource = User.new(create_params)
+    @resource.provider = 'email'
+
+    Bar.transaction do
+      User.transaction do
+        @bar.save!
+        save_user
+      end
+    end
+  end
+
   def save_user
     if @resource.save!
       # email auth has been bypassed, authenticate user
@@ -26,7 +38,7 @@ module RegistrationsHelper
         @member.save!
       end
 
-      return_message(I18n.t('success'), @resource)
+      return_message(I18n.t('success'), MemberSerializer.new(@member))
     end
   end
 end
