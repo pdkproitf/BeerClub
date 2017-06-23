@@ -1,5 +1,5 @@
 class CategorySerializer < ActiveModel::Serializer
-  attributes :id, :name, :archived
+  attributes :id, :name
 
   belongs_to :bar, serializer: BarSerializer
 end
