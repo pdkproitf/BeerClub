@@ -9,17 +9,11 @@ module UserApi
         User.find_by(email: user_params['email'])
       end
 
+      # return login information to user.
       def sign_in_token_validation
         data  = @resource.token_validation_response.to_h
         data.store('client', @client_id)
         data.store('token', @token)
-        data
-      end
-
-      # return login information to user.
-      def data_login
-        data = MemberSerializer.new(@member).as_json
-        data.store(:user, sign_in_token_validation)
         data
       end
 
@@ -41,7 +35,6 @@ module UserApi
       desc "sign-in", entity: Entities::UserEntities::UserLogins
       params do
         requires :user, type: Hash do
-          requires :bar_name, type: String, desc: "Name of a Bar"
           requires :email, type: String, desc: "User's Email"
           requires :password,  type: String, desc: "password"
         end
@@ -50,13 +43,11 @@ module UserApi
         @resource = sign_in_params
         if @resource and @resource.valid_password?(params['user']['password']) and
           (!@resource.respond_to?(:active_for_authentication?) or @resource.active_for_authentication?)
-          @bar = @resource.bars.find_by_name(params[:user][:bar_name])
-          error!(I18n.t("not_found", title: params['user']['bar_name']), 404) unless @bar
 
-          @member =  @resource.members.find_by_bar_id(@bar.id)
+           error!(I18n.t('access_denie')) unless @resource.admin?
 
           create_client_id_and_token
-          return_message(I18n.t("devise.sessions.signed_in"), data_login)
+          return_message(I18n.t("devise.sessions.signed_in"), sign_in_token_validation)
         elsif @resource and not (!@resource.respond_to?(:active_for_authentication?) or @resource.active_for_authentication?)
           error!(I18n.t("devise_token_auth.sessions.not_confirmed", email: @resource.email), 500)
         else

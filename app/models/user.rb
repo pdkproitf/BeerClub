@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
 
   before_save :downcase_email
 
+  def admin?
+    role.name == 'Admin'
+  end
+
   private
   # Converts email to all lower-case
   def downcase_email

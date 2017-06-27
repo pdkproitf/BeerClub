@@ -27,4 +27,5 @@ en:
   not_archived:  "%{content} doesn't archived"
   not_found: "%{title} not found"
   Unauthor: "Unauthorized"
+  access_denie: "Access Denie"
   beer_using: "Category constraint beers are using. You should archived "
