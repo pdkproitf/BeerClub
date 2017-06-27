@@ -86,8 +86,8 @@ module BeerApi
 
         beer = category.beers.find(params[:id])
         error!(I18n.t('already_archived', content: "Beer")) if beer.archived
-        beer.update_attributes!(beer_params)
 
+        beer.update_attributes!(beer_params)
         return_message(I18n.t('success'), BeerSerializer.new(beer))
       end
 
@@ -103,7 +103,6 @@ module BeerApi
       desc 'unarchived beer'
       put ':id/unarchive' do
         beer = Beer.find(params[:id])
-
         error!(I18n.t('not_archived', content: "Beer")) unless beer.archived
 
         beer.update_attributes!(archived: false)
