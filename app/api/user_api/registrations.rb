@@ -10,7 +10,6 @@ module UserApi
       desc 'create new user', entity: Entities::UserEntities::Users
       params do
         requires :user, type: Hash do
-          optional :bar_name, type: String, desc: 'Name of a Bar'
           requires :name, type: String, desc: 'Name'
           requires :email, type: String, desc: "User's Email"
           requires :password, type: String, desc: 'password'
@@ -18,15 +17,13 @@ module UserApi
         end
       end
       post do
-        if params[:user][:bar_name]
-          # create account admin with new bar
-          @bar = Bar.new(name: params[:user][:bar_name])
-        else
-          # create account admin with current bar
-          authenticated!
-          @bar = @current_member.bar
+        @resource = User.new(create_params)
+        @resource.provider = 'email'
+
+        User.transaction do
+          add_role
+          save_user
         end
-        build_new_user
       end
     end
   end

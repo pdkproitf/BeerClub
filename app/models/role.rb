@@ -1,5 +1,5 @@
 class Role < ApplicationRecord
-  has_many :members
+  has_many :users
 
   validates :name, presence: true, uniqueness: true
 end
