@@ -4,11 +4,6 @@ module CategoryApi
     version 'v1', using: :accept_version_header
 
     helpers do
-      # check is request of admin or without admin
-      def admin_request?
-        !current_user.blank? && current_user.admin?
-      end
-
       def categories
         admin_request? ? Category.all : Category.where(archived: false)
       end
