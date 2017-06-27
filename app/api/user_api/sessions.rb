@@ -16,6 +16,7 @@ module UserApi
         data
       end
 
+      # return login information to user.
       def data_login
         data = MemberSerializer.new(@member).as_json
         data.store(:user, sign_in_token_validation)

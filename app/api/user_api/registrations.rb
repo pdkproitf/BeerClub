@@ -17,7 +17,7 @@ module UserApi
           requires :password_confirmation, type: String, desc: 'password_confirmation'
         end
       end
-      post '/' do
+      post do
         if params[:user][:bar_name]
           # create account admin with new bar
           @bar = Bar.new(name: params[:user][:bar_name])

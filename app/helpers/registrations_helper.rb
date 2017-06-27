@@ -1,9 +1,11 @@
 module RegistrationsHelper
+  # Strong param for user
   def create_params
     ActionController::Parameters.new(params).require(:user)
       .permit(:name, :email, :password, :password_confirmation)
   end
 
+  # user will have a member account to access permission in system
   def create_member
     @role = Role.find_or_create_by(name: 'Admin')
     @bar.members.new(user_id: @resource.id, role_id: @role.id)

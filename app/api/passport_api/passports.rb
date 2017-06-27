@@ -30,7 +30,6 @@ module PassportApi
       post 'beer' do
         passport = Passport.find(params[:passport_id])
         beer = Beer.find(params[:beer_id])
-
         passport_beer =  PassportBeer.create!(passport_id: passport.id, beer_id: beer.id)
         return_message(I18n.t('success'), PassportBeerSerializer.new(passport_beer))
       end
@@ -45,7 +44,6 @@ module PassportApi
         beer = Beer.find(params[:beer_id])
 
         passport_beer =  passport.passport_beers.find_by(beer_id: beer.id)
-
         error!(I18n.t('not_found', title: 'Beer on Passport'), 404) if passport_beer.blank?
 
         passport_beer.destroy!
