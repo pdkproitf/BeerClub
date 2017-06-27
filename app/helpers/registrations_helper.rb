@@ -5,24 +5,6 @@ module RegistrationsHelper
       .permit(:name, :email, :password, :password_confirmation)
   end
 
-  # user will have a member account to access permission in system
-  def create_member
-    @role = Role.find_or_create_by(name: 'Admin')
-    @bar.members.new(user_id: @resource.id, role_id: @role.id)
-  end
-
-  def build_new_user
-    @resource = User.new(create_params)
-    @resource.provider = 'email'
-
-    Bar.transaction do
-      User.transaction do
-        @bar.save!
-        save_user
-      end
-    end
-  end
-
   def save_user
     if @resource.save!
       # email auth has been bypassed, authenticate user
@@ -33,14 +15,15 @@ module RegistrationsHelper
         token: BCrypt::Password.create(@token),
         expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
       }
+
       @resource.save!
 
-      @member = create_member
-      Member.transaction do
-        @member.save!
-      end
-
-      return_message(I18n.t('success'), MemberSerializer.new(@member))
+      return_message(I18n.t('success'), UserSerializer.new(@resource))
     end
+  end
+
+  def add_role
+    role = Role.find_or_create_by(name: 'Admin')
+    @resource.role_id = role.id
   end
 end

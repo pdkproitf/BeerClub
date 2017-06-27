@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
   # after_create :send_confirmation_email
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  has_many :members
-  has_many :bars, through: :members
+  belongs_to :role
 
   validates :email, presence: true, length: { maximum: Settings.mail_max_length },
                     format: { with: VALID_EMAIL_REGEX },
