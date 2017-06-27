@@ -17,13 +17,15 @@ module RegistrationsHelper
       }
 
       @resource.save!
-
-      return_message(I18n.t('success'), UserSerializer.new(@resource))
     end
   end
 
   def add_role
     role = Role.find_or_create_by(name: 'Admin')
     @resource.role_id = role.id
+  end
+
+  def add_passport
+    @resource.create_passport!(name: @resource.name)
   end
 end
