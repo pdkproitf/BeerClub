@@ -13,7 +13,7 @@ module PassportApi
       end
       post do
         passport = Passport.create!(name: params[:passport][:name])
-        return_message(I18n.t('success'), passport)
+        return_message(I18n.t('success'), PassportSerializer.new(passport))
       end
 
       desc 'get passport inform'
