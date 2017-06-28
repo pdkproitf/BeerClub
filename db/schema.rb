@@ -15,12 +15,6 @@ ActiveRecord::Schema.define(version: 20170627075559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "bars", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "beers", force: :cascade do |t|
     t.string   "manufacurter"
     t.string   "name"
@@ -40,8 +34,6 @@ ActiveRecord::Schema.define(version: 20170627075559) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.boolean  "archived",   default: false
-    t.integer  "bar_id"
-    t.index ["bar_id"], name: "index_categories_on_bar_id", using: :btree
   end
 
   create_table "customers", force: :cascade do |t|
@@ -71,17 +63,6 @@ ActiveRecord::Schema.define(version: 20170627075559) do
     t.index ["email"], name: "index_customers_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true, using: :btree
     t.index ["uid", "provider"], name: "index_customers_on_uid_and_provider", unique: true, using: :btree
-  end
-
-  create_table "members", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "bar_id"
-    t.integer  "role_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bar_id"], name: "index_members_on_bar_id", using: :btree
-    t.index ["role_id"], name: "index_members_on_role_id", using: :btree
-    t.index ["user_id"], name: "index_members_on_user_id", using: :btree
   end
 
   create_table "passport_beers", force: :cascade do |t|
