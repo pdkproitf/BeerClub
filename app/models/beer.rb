@@ -5,5 +5,5 @@ class Beer < ApplicationRecord
 
   validates_presence_of :manufacurter, :name, :country, :price, :description
   validates :name, uniqueness: true, length: { minimum: Settings.name_min_length }
-  validates_numericality_of :price, :count, greater_than: Settings.number_min_value
+  validates_numericality_of :price, greater_than: Settings.number_min_value
 end

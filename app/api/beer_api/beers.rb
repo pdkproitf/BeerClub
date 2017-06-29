@@ -6,7 +6,7 @@ module BeerApi
     helpers do
       def beer_params
         ActionController::Parameters.new(params).require(:beer)
-          .permit(:manufacurter, :name, :country, :price, :description, :count, :category_id)
+          .permit(:manufacurter, :name, :country, :price, :description, :category_id)
       end
 
       # using limit beer is archived response with user not Admin
@@ -57,7 +57,6 @@ module BeerApi
           requires  :country, type: String, desc: 'Country of beer'
           requires  :price, type: Float, desc: 'Price of a beer'
           requires  :description, type: String, desc: 'Description of beer'
-          requires  :count, type: Integer, desc: 'Num of a beers'
         end
       end
       post do
@@ -77,7 +76,6 @@ module BeerApi
           requires  :country, type: String, desc: 'Country of beer'
           requires  :price, type: Float, desc: 'Price of a beer'
           requires  :description, type: String, desc: 'Description of beer'
-          requires  :count, type: Integer, desc: 'Num of a beers'
         end
       end
       put ':id' do
