@@ -40,6 +40,16 @@ module PassportApi
         return_message(I18n.t('success'), PassportSerializer.new(passport))
       end
 
+      before do
+        authenticated!
+      end
+
+      desc 'get passports'
+      get do
+        passports = Passport.all.map { |e| PassportSerializer.new(e)  }
+        return_message(I18n.t('success'), passports)
+      end
+
       desc 'add a beer to passport'
       params do
         requires :passport_id, type: Integer, desc: 'passport id'

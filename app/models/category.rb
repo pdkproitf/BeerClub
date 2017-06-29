@@ -7,7 +7,7 @@ class Category < ApplicationRecord
   # check any beer are seling on category.
   def using?
     beers.each do |beer|
-      return true if beer.archived
+      return true unless beer.archived
     end
     false
   end
