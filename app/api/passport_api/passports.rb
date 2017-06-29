@@ -3,6 +3,23 @@ module PassportApi
     prefix :api
     version 'v1', using: :accept_version_header
 
+    helpers do
+      def current_customer
+        client_id = request.headers['Client']
+        token = request.headers['Access-Token']
+
+        customer = User.find_by("tokens ? '#{client_id}'")
+
+        return customer unless customer.nil? || !customer.valid_token?(token, client_id)
+        customer = nil
+      end
+
+      def valid_customer_access(passport)
+        customer = current_customer
+        error!(I18n.t('Unauthor'), 401) if customer && !customer.passports.find(passport.id)
+      end
+    end
+
     resources :passports do
 
       desc 'create a passport'
@@ -19,7 +36,18 @@ module PassportApi
       desc 'get passport inform'
       get ':id' do
         passport = Passport.find(params[:id])
+        valid_customer_access(passport)
         return_message(I18n.t('success'), PassportSerializer.new(passport))
+      end
+
+      before do
+        authenticated!
+      end
+
+      desc 'get passports'
+      get do
+        passports = Passport.all.map { |e| PassportSerializer.new(e)  }
+        return_message(I18n.t('success'), passports)
       end
 
       desc 'add a beer to passport'
@@ -29,6 +57,8 @@ module PassportApi
       end
       post 'beer' do
         passport = Passport.find(params[:passport_id])
+        valid_customer_access(passport)
+
         beer = Beer.find(params[:beer_id])
         passport_beer =  PassportBeer.create!(passport_id: passport.id, beer_id: beer.id)
         return_message(I18n.t('success'), PassportBeerSerializer.new(passport_beer))
@@ -41,8 +71,9 @@ module PassportApi
       end
       delete 'beer' do
         passport = Passport.find(params[:passport_id])
-        beer = Beer.find(params[:beer_id])
+        valid_customer_access(passport)
 
+        beer = Beer.find(params[:beer_id])
         passport_beer =  passport.passport_beers.find_by(beer_id: beer.id)
         error!(I18n.t('not_found', title: 'Beer on Passport'), 404) if passport_beer.blank?
 
