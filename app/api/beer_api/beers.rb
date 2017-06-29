@@ -6,7 +6,7 @@ module BeerApi
     helpers do
       def beer_params
         ActionController::Parameters.new(params).require(:beer)
-          .permit(:manufacurter, :name, :country, :price, :description, :count)
+          .permit(:manufacurter, :name, :country, :price, :description, :count, :category_id)
       end
 
       # using limit beer is archived response with user not Admin
@@ -84,7 +84,7 @@ module BeerApi
         category = Category.find(params[:beer][:category_id])
         error!(I18n.t('already_archived', content: "Category")) if category.archived
 
-        beer = category.beers.find(params[:id])
+        beer = beers.find(params[:id])
         error!(I18n.t('already_archived', content: "Beer")) if beer.archived
 
         beer.update_attributes!(beer_params)
