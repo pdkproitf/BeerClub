@@ -8,15 +8,16 @@ module PassportApi
         client_id = request.headers['Client']
         token = request.headers['Access-Token']
 
-        customer = User.find_by("tokens ? '#{client_id}'")
+        customer = Customer.find_by("tokens ? '#{client_id}'")
 
         return customer unless customer.nil? || !customer.valid_token?(token, client_id)
         customer = nil
       end
 
       def valid_customer_access(passport)
+        return true if current_user
         customer = current_customer
-        error!(I18n.t('Unauthor'), 401) if customer && !customer.passports.find(passport.id)
+        error!(I18n.t('Unauthor'), 401) if customer && !customer.passport.id == passport.id
       end
     end
 
@@ -38,10 +39,6 @@ module PassportApi
         passport = Passport.find(params[:id])
         valid_customer_access(passport)
         return_message(I18n.t('success'), PassportSerializer.new(passport))
-      end
-
-      before do
-        authenticated!
       end
 
       desc 'get passports'

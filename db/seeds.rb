@@ -21,8 +21,7 @@ User.create!(
     email: "ryanpham#{index}@gmail.com",
     password: "ryanpham#{index}",
     password_confirmation: "ryanpham#{index}")
-
-  customer.passports.create(name: customer.name)
+  customer.create_passport(name: customer.name)
 end
 
 category = Category.create!(name: 'Ales')
@@ -34,8 +33,7 @@ category.beers.create(
   description: "An authentic Bavarian style wheat beer, served unfiltered with its natural
     yeast and proteins. Using traditional special yeast, the beer is bursting with flavours
     that may surprise you.Reminiscent of bananas, cloves and lemons.
-    It pairs very nicely with seafood, especially broiled or grilled fish such as salmon. Collingwood, ON",
-  count: 8
+    It pairs very nicely with seafood, especially broiled or grilled fish such as salmon. Collingwood, ON"
 )
 
 category = Category.create(name: 'Lagers')
@@ -47,8 +45,7 @@ category.beers.create(
   description: "Yeah, they know: “light” and “craft brewed” in the same sentence? Yes.
     Antigravity is a natural, craft-brewed light lager late-hopped for a complexity not
     usually found at the lighter end of the spectrum. Brewed with Canadian 2-row pale malt,
-    Antigravity is a super-refreshing, clean-tasting, lager with a dry brush of European Saaz hops on the finish.Barrie, ON",
-  count: 8
+    Antigravity is a super-refreshing, clean-tasting, lager with a dry brush of European Saaz hops on the finish.Barrie, ON"
 )
 
 category = Category.create(name: 'Anomalies')
@@ -63,8 +60,7 @@ category.beers.create(
     rustic wood and mint on the nose. It has a beautiful copper colour that finishes
     as crisp as an autumn morning. So when your server or bartender asks what you’d like to drink,
     point at the menu and say, “I’ll have This One.” You’ll be glad you did.
-    Orleans, ON",
-  count: 15
+    Orleans, ON"
 )
 
 category = Category.create(name: 'Rotating handles')
@@ -76,6 +72,5 @@ category.beers.create(
   description: "The beer you’ve been waiting for. Keeps your taste satisfied while
     keeping your senses sharp. An all-day IPA naturally brewed with a complex array of malts,
     grains and hops. Balanced for optimal aromatics and a clean finish.
-    The perfect reward for an honest day’s work and the ultimate companion to celebrate life’s simple pleasures",
-  count: 8
+    The perfect reward for an honest day’s work and the ultimate companion to celebrate life’s simple pleasures"
 )
