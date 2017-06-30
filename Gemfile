@@ -76,6 +76,8 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.8.0"
   # auto lanchrspec
   gem 'guard-rspec', require: false
+  # using to clean data when test finish
+  gem 'database_cleaner'
 end
 
 group :development do
