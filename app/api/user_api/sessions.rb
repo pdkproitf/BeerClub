@@ -13,6 +13,7 @@ module UserApi
         data  = @resource.token_validation_response.to_h
         data.store('client', @client_id)
         data.store('token', @token)
+        data.store('passport', @resource.passport) unless params[:user][:admin_mode]
         data
       end
 
