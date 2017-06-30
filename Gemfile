@@ -66,10 +66,16 @@ gem 'grape-active_model_serializers'
 gem 'swagger-blocks'
 
 gem 'rails_admin', '~> 1.2'
-
+# gem auto generate data
+gem 'faker'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
+  gem 'rspec-rails', '~> 3.6.0'
+  gem 'spring-commands-rspec'
+  gem "factory_girl_rails", "~> 4.8.0"
+  # auto lanchrspec
+  gem 'guard-rspec', require: false
 end
 
 group :development do
