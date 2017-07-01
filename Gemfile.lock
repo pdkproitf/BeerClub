@@ -68,6 +68,7 @@ GEM
     config (1.4.0)
       activesupport (>= 3.0)
       deep_merge (~> 1.1.1)
+    database_cleaner (1.6.1)
     declarative (0.0.9)
     declarative-option (0.1.0)
     deep_merge (1.1.1)
@@ -82,12 +83,21 @@ GEM
     devise_token_auth (0.1.42)
       devise (> 3.5.2, <= 4.3)
       rails (< 6)
+    diff-lcs (1.3)
     equalizer (0.0.11)
     erubis (2.7.0)
     execjs (2.7.0)
+    factory_girl (4.8.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.8.0)
+      factory_girl (~> 4.8.0)
+      railties (>= 3.0.0)
+    faker (1.7.3)
+      i18n (~> 0.5)
     ffi (1.9.18)
     font-awesome-rails (4.7.0.2)
       railties (>= 3.2, < 5.2)
+    formatador (0.2.5)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     grape (0.19.2)
@@ -116,6 +126,20 @@ GEM
     grape-swagger-representable (0.1.4)
       grape-swagger (>= 0.20.4)
       representable
+    guard (2.14.1)
+      formatador (>= 0.2.4)
+      listen (>= 2.7, < 4.0)
+      lumberjack (~> 1.0)
+      nenv (~> 0.1)
+      notiffany (~> 0.0)
+      pry (>= 0.9.12)
+      shellany (~> 0.0)
+      thor (>= 0.18.1)
+    guard-compat (1.2.1)
+    guard-rspec (4.7.3)
+      guard (~> 2.1)
+      guard-compat (~> 1.1)
+      rspec (>= 2.99.0, < 4.0)
     haml (5.0.1)
       temple (>= 0.8.0)
       tilt
@@ -151,6 +175,7 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.7)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
+    lumberjack (1.0.12)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
@@ -164,10 +189,14 @@ GEM
     mustermann (1.0.0)
     mustermann-grape (1.0.0)
       mustermann (~> 1.0.0)
+    nenv (0.3.0)
     nested_form (0.3.2)
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
+    notiffany (0.1.1)
+      nenv (~> 0.1)
+      shellany (~> 0.0)
     omniauth (1.6.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
@@ -238,6 +267,27 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rspec (3.6.0)
+      rspec-core (~> 3.6.0)
+      rspec-expectations (~> 3.6.0)
+      rspec-mocks (~> 3.6.0)
+    rspec-core (3.6.0)
+      rspec-support (~> 3.6.0)
+    rspec-expectations (3.6.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.6.0)
+    rspec-mocks (3.6.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.6.0)
+    rspec-rails (3.6.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.6.0)
+      rspec-expectations (~> 3.6.0)
+      rspec-mocks (~> 3.6.0)
+      rspec-support (~> 3.6.0)
+    rspec-support (3.6.0)
     sass (3.4.24)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -245,9 +295,12 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    shellany (0.0.1)
     slop (3.6.0)
     spring (2.0.2)
       activesupport (>= 4.2)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
@@ -293,13 +346,17 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 4.2)
   config
+  database_cleaner
   devise_token_auth
+  factory_girl_rails (~> 4.8.0)
+  faker
   grape
   grape-active_model_serializers
   grape-swagger
   grape-swagger-entity
   grape-swagger-rails
   grape-swagger-representable
+  guard-rspec
   hashie-forbidden_attributes
   jbuilder (~> 2.5)
   jquery-rails
@@ -311,8 +368,10 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.0.4)
   rails_admin (~> 1.2)
+  rspec-rails (~> 3.6.0)
   sass-rails (~> 5.0)
   spring
+  spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
   swagger-blocks
   turbolinks (~> 5)
