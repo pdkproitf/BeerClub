@@ -17,7 +17,7 @@ module PassportApi
       def valid_customer_access(passport)
         return true if current_user
         customer = current_customer
-        error!(I18n.t('Unauthor'), 401) if customer && !customer.passport.id == passport.id
+        error!(I18n.t('Unauthor'), 401) if !customer || !customer.passport.id == passport.id
       end
     end
 
