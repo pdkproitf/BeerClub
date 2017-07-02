@@ -81,7 +81,7 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
   end
 
   describe 'GET api/categories/' do
-    let(:url) { '/api/categories' }
+    let(:url) { '/api/categories/' }
     let!(:category) { FactoryGirl.create :category }
     let(:messages) { JSON.parse(response.body) }
 
@@ -93,24 +93,41 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
         expect(response).to have_http_status(:success)
       end
     end
+
+    context 'get category' do
+      it 'get success' do
+        get url, params: { name: category.name }
+
+        expect(messages['status']).to eq(I18n.t('success'))
+        expect(response).to have_http_status(:success)
+      end
+    end
   end
 
-  # describe 'DELETE api/categories/:id' do
-  #   let(:url) { '/api/categories' }
-  #   let!(:category) { FactoryGirl.create :category }
-  #   let!(:beer) { FactoryGirl.create :beer }
-  #   let(:messages) { JSON.parse(response.body) }
-  #
-  #   context 'Delete a category' do
-  #     before do
-  #       beer.update_attributes(category_id: category.id)
-  #     end
-  #
-  #     it 'error beer are using' do
-  #       delete "#{url}/#{category.id}", params: {}, headers: headers
-  #       expect(response).to have_http_status(406)
-  #       expect(messages['status']).to eq(I18n.t('beer_using'))
-  #     end
-  #   end
-  # end
+  describe 'DELETE api/categories/:id' do
+    let(:url) { '/api/categories/' }
+    let!(:category) { FactoryGirl.create :category }
+    let!(:beer) { FactoryGirl.create :beer }
+    let(:messages) { JSON.parse(response.body) }
+
+    context 'Delete a category' do
+      before do
+        beer.update_attributes(category_id: category.id)
+      end
+
+      it 'error beer are using' do
+        delete "#{url}/#{category.id}", headers: headers
+        expect(response).to have_http_status(406)
+        expect(messages['error']).to eq(I18n.t('beer_using'))
+      end
+
+      it 'delete success' do
+        beer.update_attributes(archived: true)
+
+        delete "#{url}/#{category.id}", headers: headers
+        expect(response).to have_http_status(200)
+        expect(messages['status']).to eq(I18n.t('success'))
+      end
+    end
+  end
 end
