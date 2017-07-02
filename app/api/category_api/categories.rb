@@ -15,7 +15,7 @@ module CategoryApi
       params do
         requires :name, type: String, desc: 'Category name'
       end
-      get ':name' do
+      get '/:name' do
         category = categories.find_by(name: params[:name])
         error!(I18n.t('not_found', title: 'Category'), 404) if category.blank?
 
@@ -67,7 +67,7 @@ module CategoryApi
         return_message(I18n.t('success'), CategorySerializer.new(category))
       end
 
-      desc 'archive a category' #, entity: Entities::UserEntities::Users
+      desc 'unarchive a category' #, entity: Entities::UserEntities::Users
       put ':id/unarchive' do
         category = Category.find(params[:id])
         error!(I18n.t('not_found', title: 'Category'), 404) if category.blank?

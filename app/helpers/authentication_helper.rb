@@ -9,7 +9,7 @@ module AuthenticationHelper
 
     @current_user = User.find_by("tokens ? '#{client_id}'")
 
-    return @current_user unless @current_user.nil? || !@current_user.valid_token?(token, client_id)
+    return @current_user if !@current_user.nil? && @current_user.valid_token?(token, client_id)
     @current_user = nil
   end
 
