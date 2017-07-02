@@ -4,18 +4,19 @@ RSpec.describe API::Root::UserApi::Registrations, type: :request do
 
   describe 'POST api/users' do
     let(:url) { '/api/users' }
+    let(:user) {
+      {
+        name: Faker::Name.name,
+        email: Faker::Internet.email,
+        password:  "password",
+        password_confirmation: "password",
+        admin_mode: true
+      }
+    }
 
-    context 'Create user' do
+    context 'Create' do
       it 'create user' do
-        params = {
-          user: {
-            name: Faker::Name.name,
-            email: Faker::Internet.email,
-            password:  "password",
-            password_confirmation: "password",
-            admin_mode: true
-          }
-        }
+        params = { user: user }
 
         expect { post url, params: params }.to change { User.count }.from(0).to(1)
         expect(response).to have_http_status(:success)
@@ -24,15 +25,8 @@ RSpec.describe API::Root::UserApi::Registrations, type: :request do
       end
 
       it 'create customer' do
-        params = {
-          user: {
-            name: Faker::Name.name,
-            email: Faker::Internet.email,
-            password:  "password",
-            password_confirmation: "password",
-            admin_mode: false
-          }
-        }
+        user[:admin_mode] = false
+        params = { user: user }
 
         expect { post url, params: params }.to change { Customer.count }.from(0).to(1)
         expect(response).to have_http_status(:success)
