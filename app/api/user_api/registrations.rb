@@ -19,6 +19,8 @@ module UserApi
       end
       post do
         if params[:user][:admin_mode]
+          authenticated!
+
           @resource = User.new(create_params)
           @resource.provider = 'email'
 
