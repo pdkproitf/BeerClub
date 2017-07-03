@@ -48,7 +48,7 @@ module UserApi
            error!(I18n.t('access_denie')) if params[:user][:admin_mode] && !@resource.admin?
 
           create_client_id_and_token
-          return_message(I18n.t("devise.sessions.signed_in"), sign_in_token_validation)
+          response(I18n.t("devise.sessions.signed_in"), sign_in_token_validation)
         elsif @resource and not (!@resource.respond_to?(:active_for_authentication?) or @resource.active_for_authentication?)
           error!(I18n.t("devise_token_auth.sessions.not_confirmed", email: @resource.email), 500)
         else
@@ -77,7 +77,7 @@ module UserApi
         if user and client_id and user.tokens[client_id]
           user.tokens.delete(client_id)
           user.save!
-          return_message I18n.t("devise.sessions.signed_out")
+          response I18n.t("devise.sessions.signed_out")
         else
           error!(I18n.t("devise_token_auth.sessions.user_not_found"), 404)
         end

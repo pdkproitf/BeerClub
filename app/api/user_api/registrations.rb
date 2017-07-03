@@ -27,7 +27,7 @@ module UserApi
           User.transaction do
             add_role
             save_user
-            return_message(I18n.t('success'), UserSerializer.new(@resource))
+            response(I18n.t('success'), UserSerializer.new(@resource))
           end
         else
           @resource = Customer.new(create_params)
@@ -35,7 +35,7 @@ module UserApi
           Customer.transaction do
             add_passport
             save_user
-            return_message(I18n.t('success'), CustomerSerializer.new(@resource))
+            response(I18n.t('success'), CustomerSerializer.new(@resource))
           end
         end
       end

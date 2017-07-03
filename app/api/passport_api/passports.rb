@@ -31,20 +31,20 @@ module PassportApi
       end
       post do
         passport = Passport.create!(name: params[:passport][:name])
-        return_message(I18n.t('success'), PassportSerializer.new(passport))
+        response(I18n.t('success'), PassportSerializer.new(passport))
       end
 
       desc 'get passport inform'
       get ':id' do
         passport = Passport.find(params[:id])
         valid_customer_access(passport)
-        return_message(I18n.t('success'), PassportSerializer.new(passport))
+        response(I18n.t('success'), PassportSerializer.new(passport))
       end
 
       desc 'get passports'
       get do
         passports = Passport.all.map { |e| PassportSerializer.new(e)  }
-        return_message(I18n.t('success'), passports)
+        response(I18n.t('success'), passports)
       end
 
       desc 'add a beer to passport'
@@ -58,7 +58,7 @@ module PassportApi
 
         beer = Beer.find(params[:beer_id])
         passport_beer =  PassportBeer.create!(passport_id: passport.id, beer_id: beer.id)
-        return_message(I18n.t('success'), PassportBeerSerializer.new(passport_beer))
+        response(I18n.t('success'), PassportBeerSerializer.new(passport_beer))
       end
 
       desc 'remove a beer to passport'
@@ -75,7 +75,7 @@ module PassportApi
         error!(I18n.t('not_found', title: 'Beer on Passport'), 404) if passport_beer.blank?
 
         passport_beer.destroy!
-        return_message(I18n.t('success'), PassportBeerSerializer.new(passport_beer))
+        response(I18n.t('success'), PassportBeerSerializer.new(passport_beer))
       end
     end
   end

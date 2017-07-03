@@ -25,7 +25,7 @@ module BeerApi
       desc 'get a beer'
       get '/:id' do
         beer = beers.find(params[:id])
-        return_message(I18n.t('success'), BeerSerializer.new(beer))
+        response(I18n.t('success'), BeerSerializer.new(beer))
       end
 
       desc 'get beers on a category'
@@ -35,13 +35,13 @@ module BeerApi
         beers = admin_request? ? category.beers : category.beers.where(archived: false)
         beers.map{ |e| BeerSerializer.new(e) }
 
-        return_message(I18n.t('success'), beers)
+        response(I18n.t('success'), beers)
       end
 
 
       desc 'get beers'
       get do
-        return_message(I18n.t('success'), beers.map{ |e| BeerSerializer.new(e) })
+        response(I18n.t('success'), beers.map{ |e| BeerSerializer.new(e) })
       end
 
       before do
@@ -64,7 +64,7 @@ module BeerApi
         error!(I18n.t('already_archived', content: "Category"), 400) if category.archived
 
         beer = category.beers.create!(beer_params)
-        return_message(I18n.t('success'), BeerSerializer.new(beer))
+        response(I18n.t('success'), BeerSerializer.new(beer))
       end
 
       desc 'edit a beer'
@@ -86,7 +86,7 @@ module BeerApi
         error!(I18n.t('already_archived', content: "Beer")) if beer.archived
 
         beer.update_attributes!(beer_params)
-        return_message(I18n.t('success'), BeerSerializer.new(beer))
+        response(I18n.t('success'), BeerSerializer.new(beer))
       end
 
       desc 'archived beer'
@@ -95,7 +95,7 @@ module BeerApi
         error!(I18n.t('already_archived', content: "Beer")) if beer.archived
 
         beer.update_attributes!(archived: true)
-        return_message(I18n.t('success'), BeerSerializer.new(beer))
+        response(I18n.t('success'), BeerSerializer.new(beer))
       end
 
       desc 'unarchived beer'
@@ -104,7 +104,7 @@ module BeerApi
         error!(I18n.t('not_archived', content: "Beer")) unless beer.archived
 
         beer.update_attributes!(archived: false)
-        return_message(I18n.t('success'), BeerSerializer.new(beer))
+        response(I18n.t('success'), BeerSerializer.new(beer))
       end
 
       # desc 'delete a beer'
@@ -115,7 +115,7 @@ module BeerApi
       #   beer.destroy!
       #
       #   status 200
-      #   return_message(I18n.t('success'))
+      #   response(I18n.t('success'))
       # end
     end
   end
