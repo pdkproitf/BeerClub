@@ -13,11 +13,6 @@ module BeerApi
       def beers
         admin_request? ? Beer.all : Beer.where(archived: false)
       end
-
-      # using limit beer is archived response with user not Admin
-      def categories
-        admin_request? ? Category.all : Category.where(archived: false)
-      end
     end
 
     resource :beers do
@@ -27,17 +22,6 @@ module BeerApi
         beer = beers.find(params[:id])
         response(I18n.t('success'), BeerSerializer.new(beer))
       end
-
-      desc 'get beers on a category'
-      get '/category/:id' do
-        category = categories.find(params[:id])
-
-        beers = admin_request? ? category.beers : category.beers.where(archived: false)
-        beers.map{ |e| BeerSerializer.new(e) }
-
-        response(I18n.t('success'), beers)
-      end
-
 
       desc 'get beers'
       get do

@@ -72,12 +72,16 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.6.0'
+  # help your app run on background, make test faster
   gem 'spring-commands-rspec'
+  # lets you express expected outcomes on collections of an object in an example.
+  gem 'rspec-collection_matchers'
   gem "factory_girl_rails", "~> 4.8.0"
   # auto lanchrspec
   gem 'guard-rspec', require: false
   # using to clean data when test finish
   gem 'database_cleaner'
+  gem 'simplecov', :require => false, :group => :test
 end
 
 group :development do
