@@ -49,8 +49,6 @@ module UserApi
 
           create_client_id_and_token
           response(I18n.t("devise.sessions.signed_in"), sign_in_token_validation)
-        elsif @resource and not (!@resource.respond_to?(:active_for_authentication?) or @resource.active_for_authentication?)
-          error!(I18n.t("devise_token_auth.sessions.not_confirmed", email: @resource.email), 500)
         else
           error!(I18n.t("devise_token_auth.sessions.bad_credentials"), 500)
         end
@@ -72,9 +70,9 @@ module UserApi
 
         user = remove_instance_variable(:@resource) if @resource
         client_id = remove_instance_variable(:@client_id) if @client_id
-        remove_instance_variable(:@token) if @token
 
-        if user and client_id and user.tokens[client_id]
+        if user and client_id and user.tokens[client_id]['token'] == @token
+          remove_instance_variable(:@token) if @token
           user.tokens.delete(client_id)
           user.save!
           response I18n.t("devise.sessions.signed_out")
