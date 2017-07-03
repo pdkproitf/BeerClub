@@ -23,17 +23,6 @@ module PassportApi
 
     resources :passports do
 
-      desc 'create a passport'
-      params do
-        requires :passport, type: Hash do
-          requires :name, type: String, desc: "'Passport's name"
-        end
-      end
-      post do
-        passport = Passport.create!(name: params[:passport][:name])
-        response(I18n.t('success'), PassportSerializer.new(passport))
-      end
-
       desc 'get passport inform'
       get ':id' do
         passport = Passport.find(params[:id])
