@@ -84,6 +84,7 @@ GEM
       devise (> 3.5.2, <= 4.3)
       rails (< 6)
     diff-lcs (1.3)
+    docile (1.1.5)
     equalizer (0.0.11)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -157,6 +158,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
+    json (2.1.0)
     jsonapi-renderer (0.1.2)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
@@ -271,6 +273,8 @@ GEM
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
       rspec-mocks (~> 3.6.0)
+    rspec-collection_matchers (1.1.3)
+      rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.6.0)
       rspec-support (~> 3.6.0)
     rspec-expectations (3.6.0)
@@ -296,6 +300,11 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
     shellany (0.0.1)
+    simplecov (0.14.1)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.1)
     slop (3.6.0)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -368,8 +377,10 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.0.4)
   rails_admin (~> 1.2)
+  rspec-collection_matchers
   rspec-rails (~> 3.6.0)
   sass-rails (~> 5.0)
+  simplecov
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)

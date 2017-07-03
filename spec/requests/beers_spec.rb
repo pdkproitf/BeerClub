@@ -3,8 +3,11 @@ include Authenticate
 
 RSpec.describe API::Root::BeerApi::Beers, type: :request do
 
+  let(:url) { '/api/beers' }
+  let!(:beer) { FactoryGirl.create :beer }
+  let(:body) { JSON.parse(response.body) }
+
   describe 'POST api/beers' do
-    let(:url) { '/api/beers' }
     let!(:beer) { FactoryGirl.build :beer }
 
     context 'Create' do
@@ -24,10 +27,6 @@ RSpec.describe API::Root::BeerApi::Beers, type: :request do
   end
 
   describe 'PUT api/beers/:id' do
-    let(:url) { '/api/beers' }
-    let!(:beer) { FactoryGirl.create :beer }
-    let(:messages) { JSON.parse(response.body) }
-
     context 'Update a beer' do
       it 'not found' do
         params = { beer: JSON.parse(beer.to_json) }
@@ -37,11 +36,14 @@ RSpec.describe API::Root::BeerApi::Beers, type: :request do
       end
 
       it 'update success' do
+        new_name = Faker::Name.name
+        beer.name = new_name
         params = { beer: JSON.parse(beer.to_json) }
         put "#{url}/#{beer.id}", params: params, headers: headers
 
-        expect(messages['status']).to eq(I18n.t('success'))
+        expect(body['messages']).to eq(I18n.t('success'))
         expect(response).to have_http_status(:success)
+        expect(body['data']['name']).to eq(new_name)
       end
     end
 
@@ -51,13 +53,14 @@ RSpec.describe API::Root::BeerApi::Beers, type: :request do
 
         put "#{url}/#{beer.id}/archive", params: {}, headers: headers
         expect(response).to have_http_status(500)
-        expect(messages['error']).to eq(I18n.t('already_archived', content: "Beer"))
+        expect(body['error']).to eq(I18n.t('already_archived', content: "Beer"))
       end
 
       it 'archived success' do
         put "#{url}/#{beer.id}/archive", params: {}, headers: headers
-        expect(messages['status']).to eq(I18n.t('success'))
+        expect(body['messages']).to eq(I18n.t('success'))
         expect(response).to have_http_status(:success)
+        expect(body['data']['archived']).to eq true
       end
     end
 
@@ -65,30 +68,28 @@ RSpec.describe API::Root::BeerApi::Beers, type: :request do
       it 'error not archived' do
         put "#{url}/#{beer.id}/unarchive", params: {}, headers: headers
         expect(response).to have_http_status(500)
-        expect(messages['error']).to eq(I18n.t('not_archived', content: "Beer"))
+        expect(body['error']).to eq(I18n.t('not_archived', content: "Beer"))
       end
 
       it 'unarchived success' do
         beer.update_attributes(archived: true)
 
         put "#{url}/#{beer.id}/unarchive", params: {}, headers: headers
-        expect(messages['status']).to eq(I18n.t('success'))
+        expect(body['messages']).to eq(I18n.t('success'))
         expect(response).to have_http_status(:success)
+        expect(body['data']['archived']).to eq false
       end
     end
   end
 
   describe 'GET api/beers/' do
-    let(:url) { '/api/beers/' }
-    let!(:beer) { FactoryGirl.create :beer }
-    let(:messages) { JSON.parse(response.body) }
-
     context 'get beers' do
       it 'get success' do
         get url
 
-        expect(messages['status']).to eq(I18n.t('success'))
+        expect(body['messages']).to eq(I18n.t('success'))
         expect(response).to have_http_status(:success)
+        expect(body['data']).to have_at_least(1).items
       end
     end
 
@@ -96,8 +97,12 @@ RSpec.describe API::Root::BeerApi::Beers, type: :request do
       it 'get success' do
         get "#{url}/#{beer.id}"
 
-        expect(messages['status']).to eq(I18n.t('success'))
+        expect(body['messages']).to eq(I18n.t('success'))
         expect(response).to have_http_status(:success)
+        expect(body['data']['name']).to eq beer.name
+        expect(body['data']['manufacurter']).to eq beer.manufacurter
+        expect(body['data']['country']).to eq beer.country
+        expect(body['data']['price']).to eq beer.price
       end
     end
   end
