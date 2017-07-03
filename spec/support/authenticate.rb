@@ -8,6 +8,7 @@ module Authenticate
       expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
     }
     user.save!
+    user
   end
 
   def headers
