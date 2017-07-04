@@ -8,7 +8,7 @@ RSpec.describe API::Root::UserApi::Sessions, type: :request do
     let(:body) { JSON.parse(response.body) }
 
     context 'sign-in' do
-      let(:url) { '/api/users/sign-in' }
+      let(:url) { '/api/v1/users/sign-in' }
 
       it 'wrong credentials' do
         params = { user: { email: user.email, password: 'wrong_password', admin_mode: true } }
@@ -28,7 +28,7 @@ RSpec.describe API::Root::UserApi::Sessions, type: :request do
     end
 
     context 'sign-out' do
-      let(:url) { '/api/users/sign-out' }
+      let(:url) { '/api/v1/users/sign-out' }
 
       before do
         @user = auto_signin(user)

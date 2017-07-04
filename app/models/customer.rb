@@ -6,4 +6,12 @@ class Customer < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_one :passport
+
+  after_create :add_passport
+
+  private
+
+  def add_passport
+    create_passport!(name: name)
+  end
 end

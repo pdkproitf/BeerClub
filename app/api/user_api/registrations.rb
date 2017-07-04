@@ -1,7 +1,7 @@
 module UserApi
   class Registrations < Grape::API
     prefix :api
-    version 'v1', using: :accept_version_header
+    version 'v1', using: :path
 
     helpers RegistrationsHelper
 
@@ -33,7 +33,6 @@ module UserApi
           @resource = Customer.new(create_params)
           @resource.provider = 'email'
           Customer.transaction do
-            add_passport
             save_user
             response(I18n.t('success'), CustomerSerializer.new(@resource))
           end

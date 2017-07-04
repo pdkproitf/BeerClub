@@ -8,16 +8,18 @@ module Authenticate
       expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
     }
     user.save!
-    user
+    @user = user
   end
 
-  def headers
+  def sign_user
     auto_signin(FactoryGirl.create :user)
-    { 'Client': @client_id, 'Access-Token': @token }
+    # { 'Client': @client_id, 'Access-Token': @token }
+    { token: @token, client: @client_id }
   end
 
   def sign_customer
     auto_signin(FactoryGirl.create :customer)
-    { 'Client': @client_id, 'Access-Token': @token }
+    # { 'Client': @client_id, 'Access-Token': @token }
+    { token: @token, client: @client_id }
   end
 end

@@ -2,17 +2,16 @@ require 'rails_helper'
 
 RSpec.describe API::Root::UserApi::Registrations, type: :request do
 
-  describe 'POST api/users' do
-    let(:url) { '/api/users' }
+  describe 'POST api/v1/users' do
+    let(:url) { '/api/v1/users' }
     let(:user) { FactoryGirl.attributes_for :user }
-
     context 'Create' do
       it 'create a admin account' do
-        @headers = headers # create a user in this to authenticate when create a admin account
         user.merge!(admin_mode: true)
         params = { user: user }
+        params.merge!(authentication_param: sign_user )
 
-        expect { post url, params: params, headers: @headers }.to change { User.count }.from(1).to(2)
+        expect { post url, params: params}.to change { User.count }.from(1).to(2)
         expect(response).to have_http_status(:success)
         expect(User.last.admin?).to be true
         expect(User.last.present?).to be true
