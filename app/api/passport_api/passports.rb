@@ -5,8 +5,9 @@ module PassportApi
 
     helpers do
       def current_customer
-        client_id = request.headers['Client']
-        token = request.headers['Access-Token']
+        return nil unless params[:authentication_param]
+        token = params[:authentication_param][:token]
+        client_id = params[:authentication_param][:client]
 
         customer = Customer.find_by("tokens ? '#{client_id}'")
 
@@ -17,13 +18,21 @@ module PassportApi
       def valid_customer_access(passport)
         return true if current_user
         customer = current_customer
-        error!(I18n.t('Unauthor'), 401) if !customer || !customer.passport.id == passport.id
+        error!(I18n.t('Unauthor'), 401) if customer.blank? || !(customer.passport.id == passport.id)
+      end
+
+      params :authentication_param do
+        optional :token, type: String, desc: 'authentication_token of the user. Example: lB8aDy7YUMcXTNH1uz_5fFTFfCo'
+        optional :client, type: String, desc: 'Client_id user. Example: 5D37C843-2316-443B-9AC6-149597A4E1A8'
       end
     end
 
     resources :passports do
 
       desc 'get passport inform'
+      params do
+        use :authentication_param
+      end
       get ':id' do
         passport = Passport.find(params[:id])
         valid_customer_access(passport)
@@ -31,13 +40,18 @@ module PassportApi
       end
 
       desc 'get passports'
+      params do
+        use :authentication_param
+      end
       get do
+        authenticated!
         passports = Passport.all.map { |e| PassportSerializer.new(e)  }
         response(I18n.t('success'), passports)
       end
 
       desc 'add a beer to passport'
       params do
+        use :authentication_param
         requires :passport_id, type: Integer, desc: 'passport id'
         requires :beer_id, type: Integer, desc: 'beer_id id'
       end
@@ -52,6 +66,7 @@ module PassportApi
 
       desc 'remove a beer to passport'
       params do
+        use :authentication_param
         requires :passport_id, type: Integer, desc: 'passport id'
         requires :beer_id, type: Integer, desc: 'beer_id id'
       end

@@ -24,8 +24,4 @@ module RegistrationsHelper
     role = Role.find_or_create_by(name: 'Admin')
     @resource.role_id = role.id
   end
-
-  def add_passport
-    @resource.create_passport!(name: @resource.name)
-  end
 end

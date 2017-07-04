@@ -33,7 +33,6 @@ module UserApi
           @resource = Customer.new(create_params)
           @resource.provider = 'email'
           Customer.transaction do
-            add_passport
             save_user
             response(I18n.t('success'), CustomerSerializer.new(@resource))
           end

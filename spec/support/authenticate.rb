@@ -8,7 +8,7 @@ module Authenticate
       expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
     }
     user.save!
-    user
+    @user = user
   end
 
   def sign_user

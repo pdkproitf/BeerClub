@@ -6,7 +6,7 @@ RSpec.describe API::Root::BeerApi::Beers, type: :request do
   let(:url) { '/api/v1/beers' }
   let!(:beer) { FactoryGirl.create :beer }
   let(:body) { JSON.parse(response.body) }
-  let(:params) { { authentication: sign_user } }
+  let(:params) { { authentication_param: sign_user } }
 
   describe 'POST api/v1/beers' do
     let!(:beer) { FactoryGirl.build :beer }
