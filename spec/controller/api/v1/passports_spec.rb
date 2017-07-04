@@ -1,7 +1,7 @@
 require 'rails_helper'
 include Authenticate
 
-RSpec.describe API::Root::PassportApi::Passports, type: :request do
+RSpec.describe 'Passports', type: :request do
   let(:url) { '/api/v1/passports/' }
   let!(:passport) { FactoryGirl.create(:passport) }
   let(:body) { JSON.parse(response.body) }

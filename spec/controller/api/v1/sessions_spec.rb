@@ -1,7 +1,7 @@
 require 'rails_helper'
 include Authenticate
 
-RSpec.describe API::Root::UserApi::Sessions, type: :request do
+RSpec.describe 'Sessions', type: :request do
 
   describe 'POST' do
     let!(:user) { FactoryGirl.create(:user) }

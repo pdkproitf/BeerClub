@@ -1,7 +1,7 @@
 require 'rails_helper'
 include Authenticate
 
-RSpec.describe API::Root::CategoryApi::Categories, type: :request do
+RSpec.describe 'Categories', type: :request do
 
   let(:body) { JSON.parse(response.body) }
   let!(:category) { FactoryGirl.create :category }
