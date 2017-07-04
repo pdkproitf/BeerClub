@@ -7,9 +7,8 @@ module API
 
       helpers do
         def current_customer
-          return nil unless params[:authentication_param]
-          token = params[:authentication_param][:token]
-          client_id = params[:authentication_param][:client]
+          token = params[:token]
+          client_id = params[:client]
 
           customer = Customer.find_by("tokens ? '#{client_id}'")
 

@@ -5,7 +5,7 @@ RSpec.describe 'Passports', type: :request do
   let(:url) { '/api/v1/passports/' }
   let!(:passport) { FactoryGirl.create(:passport) }
   let(:body) { JSON.parse(response.body) }
-  let(:params) { { authentication_param: sign_user } }
+  let(:params) { sign_user }
 
   describe 'GET' do
     context 'get passport inform' do
@@ -20,7 +20,7 @@ RSpec.describe 'Passports', type: :request do
         end
 
         it "with customer role" do
-          params[:authentication_param] = sign_customer
+          params = sign_customer
           passport = @user.passport
           get "#{url}/#{passport.id}", params: params
 
@@ -32,7 +32,7 @@ RSpec.describe 'Passports', type: :request do
       end
 
       it "error without role" do
-        params[:authentication_param] = {token: '', client: ''}
+        params = {token: '', client: ''}
         get "#{url}/#{passport.id}", params: params
 
         expect(response).to have_http_status(:unauthorized)

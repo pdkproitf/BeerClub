@@ -5,11 +5,12 @@ RSpec.describe 'Registrations', type: :request do
   describe 'POST api/v1/users' do
     let(:url) { '/api/v1/users' }
     let(:user) { FactoryGirl.attributes_for :user }
+    let(:params) { sign_user }
+
     context 'Create' do
       it 'create a admin account' do
         user.merge!(admin_mode: true)
-        params = { user: user }
-        params.merge!(authentication_param: sign_user )
+        params.merge!(user: user )
 
         expect { post url, params: params}.to change { User.count }.from(1).to(2)
         expect(response).to have_http_status(:success)
