@@ -19,8 +19,8 @@ module BeerClub
       end
     end
 
-    config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
-    config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
+    # config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
+    # config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
     config.assets.initialize_on_precompile = false
     config.generators do |g|
       g.test_framework :rspec,

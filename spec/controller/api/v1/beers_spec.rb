@@ -1,7 +1,7 @@
 require 'rails_helper'
 include Authenticate
 
-RSpec.describe API::Root::BeerApi::Beers, type: :request do
+RSpec.describe 'Beers', type: :request do
 
   let(:url) { '/api/v1/beers' }
   let!(:beer) { FactoryGirl.create :beer }
