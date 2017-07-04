@@ -6,7 +6,7 @@ RSpec.describe 'Categories', type: :request do
   let(:body) { JSON.parse(response.body) }
   let!(:category) { FactoryGirl.create :category }
   let(:url) { '/api/v1/categories' }
-  let(:params) { { authentication_param: sign_user } }
+  let(:params) { sign_user }
 
   describe 'POST api/v1/categories' do
     let!(:category) { FactoryGirl.build :category }
