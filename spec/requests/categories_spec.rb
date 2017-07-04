@@ -5,9 +5,9 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
 
   let(:body) { JSON.parse(response.body) }
   let!(:category) { FactoryGirl.create :category }
-  let(:url) { '/api/categories' }
+  let(:url) { '/api/v1/categories' }
 
-  describe 'POST api/categories' do
+  describe 'POST api/v1/categories' do
     let!(:category) { FactoryGirl.build :category }
 
     context 'Create' do
@@ -28,7 +28,7 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
     end
   end
 
-  describe 'PUT api/categories/:id' do
+  describe 'PUT api/v1/categories/:id' do
     context 'Update a category' do
       it 'not found' do
         params = { category: { name: category.name } }
@@ -84,7 +84,7 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
     end
   end
 
-  describe 'GET api/categories/' do
+  describe 'GET api/v1/categories/' do
     context 'get categoris' do
       it 'get success' do
         get url
@@ -104,7 +104,7 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
     end
   end
 
-  describe 'DELETE api/categories/:id' do
+  describe 'DELETE api/v1/categories/:id' do
     let!(:beer) { FactoryGirl.create :beer }
 
     context 'Delete a category' do

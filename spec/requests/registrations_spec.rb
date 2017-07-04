@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe API::Root::UserApi::Registrations, type: :request do
 
-  describe 'POST api/users' do
-    let(:url) { '/api/users' }
+  describe 'POST api/v1/users' do
+    let(:url) { '/api/v1/users' }
     let(:user) { FactoryGirl.attributes_for :user }
 
     context 'Create' do

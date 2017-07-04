@@ -3,11 +3,11 @@ include Authenticate
 
 RSpec.describe API::Root::BeerApi::Beers, type: :request do
 
-  let(:url) { '/api/beers' }
+  let(:url) { '/api/v1/beers' }
   let!(:beer) { FactoryGirl.create :beer }
   let(:body) { JSON.parse(response.body) }
 
-  describe 'POST api/beers' do
+  describe 'POST api/v1/beers' do
     let!(:beer) { FactoryGirl.build :beer }
 
     context 'Create' do
@@ -26,7 +26,7 @@ RSpec.describe API::Root::BeerApi::Beers, type: :request do
     end
   end
 
-  describe 'PUT api/beers/:id' do
+  describe 'PUT api/v1/beers/:id' do
     context 'Update a beer' do
       it 'not found' do
         params = { beer: JSON.parse(beer.to_json) }
@@ -82,7 +82,7 @@ RSpec.describe API::Root::BeerApi::Beers, type: :request do
     end
   end
 
-  describe 'GET api/beers/' do
+  describe 'GET api/v1/beers/' do
     context 'get beers' do
       it 'get success' do
         get url

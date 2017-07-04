@@ -2,7 +2,7 @@ require 'rails_helper'
 include Authenticate
 
 RSpec.describe API::Root::PassportApi::Passports, type: :request do
-  let(:url) { '/api/passports/' }
+  let(:url) { '/api/v1/passports/' }
   let!(:passport) { FactoryGirl.create(:passport) }
   let(:body) { JSON.parse(response.body) }
 
@@ -25,7 +25,7 @@ RSpec.describe API::Root::PassportApi::Passports, type: :request do
   end
 
   describe 'manage beer on passport' do
-    let(:url) { '/api/passports/beer' }
+    let(:url) { '/api/v1/passports/beer' }
     let!(:beer) { FactoryGirl.create(:beer) }
 
     describe 'add beer to passport' do

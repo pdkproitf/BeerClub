@@ -1,7 +1,7 @@
 module PassportApi
   class Passports < Grape::API
     prefix :api
-    version 'v1', using: :accept_version_header
+    version 'v1', using: :path
 
     helpers do
       def current_customer

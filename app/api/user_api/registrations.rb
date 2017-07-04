@@ -1,7 +1,7 @@
 module UserApi
   class Registrations < Grape::API
     prefix :api
-    version 'v1', using: :accept_version_header
+    version 'v1', using: :path
 
     helpers RegistrationsHelper
 
