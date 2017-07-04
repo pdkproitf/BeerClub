@@ -6,22 +6,22 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
   let(:body) { JSON.parse(response.body) }
   let!(:category) { FactoryGirl.create :category }
   let(:url) { '/api/v1/categories' }
+  let(:params) { { authentication_param: sign_user } }
 
   describe 'POST api/v1/categories' do
     let!(:category) { FactoryGirl.build :category }
 
     context 'Create' do
       it 'wrong credentials' do
-        params = { category: { name: nil } }
-        post url, params: params, headers: headers
-
+        params.merge!(category: { name: nil })
+        post url, params: params
         expect(response).to have_http_status(400)
       end
 
       it 'right credentials' do
-        params = { category: { name: category.name } }
+        params.merge!(category: FactoryGirl.attributes_for(:category))
 
-        expect { post url, params: params, headers: headers }.to change { Category.count }.from(0).to(1)
+        expect { post url, params: params }.to change { Category.count }.from(0).to(1)
         expect(response).to have_http_status(:success)
         expect(Category.last.present?).to eq true
       end
@@ -30,21 +30,22 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
 
   describe 'PUT api/v1/categories/:id' do
     context 'Update a category' do
+      let(:category_update) { FactoryGirl.attributes_for(:category) }
+
       it 'not found' do
-        params = { category: { name: category.name } }
-        put "#{url}/0", params: params, headers: headers
+        params.merge!(category: category_update)
+        put "#{url}/0", params: params
 
         expect(response).to have_http_status(400)
       end
 
       it 'update success' do
-        new_name = Faker::Name.name
-        params = { category: { name: new_name } }
-        put "#{url}/#{category.id}", params: params, headers: headers
+        params.merge!(category: category_update)
+        put "#{url}/#{category.id}", params: params
 
         expect(body['messages']).to eq(I18n.t('success'))
         expect(response).to have_http_status(:success)
-        expect(body['data']['name']).to eq(new_name)
+        expect(body['data']['name']).to eq(category_update[:name])
 
       end
     end
@@ -53,13 +54,13 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
       it 'error already archived' do
         category.update_attributes(archived: true)
 
-        put "#{url}/#{category.id}/archive", params: {}, headers: headers
+        put "#{url}/#{category.id}/archive", params: params
         expect(response).to have_http_status(500)
         expect(body['error']).to eq(I18n.t('already_archived', content: "Category"))
       end
 
       it 'archived success' do
-        put "#{url}/#{category.id}/archive", params: {}, headers: headers
+        put "#{url}/#{category.id}/archive", params: params
         expect(body['messages']).to eq(I18n.t('success'))
         expect(response).to have_http_status(:success)
         expect(body['data']['archived']).to eq true
@@ -68,7 +69,7 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
 
     context 'Unarchive category' do
       it 'error not archived' do
-        put "#{url}/#{category.id}/unarchive", params: {}, headers: headers
+        put "#{url}/#{category.id}/unarchive", params: params
         expect(response).to have_http_status(500)
         expect(body['error']).to eq(I18n.t('not_archived', content: "Category"))
       end
@@ -76,7 +77,7 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
       it 'unarchived success' do
         category.update_attributes(archived: true)
 
-        put "#{url}/#{category.id}/unarchive", params: {}, headers: headers
+        put "#{url}/#{category.id}/unarchive", params: params
         expect(body['messages']).to eq(I18n.t('success'))
         expect(response).to have_http_status(:success)
         expect(body['data']['archived']).to eq false
@@ -91,6 +92,7 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
 
         expect(body['messages']).to eq(I18n.t('success'))
         expect(response).to have_http_status(:success)
+        expect(body['data']).to have_at_least(1).items
       end
     end
 
@@ -113,7 +115,7 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
       end
 
       it 'error beer are using' do
-        delete "#{url}/#{category.id}", headers: headers
+        delete "#{url}/#{category.id}", params: params
         expect(response).to have_http_status(406)
         expect(body['error']).to eq(I18n.t('beer_using'))
       end
@@ -121,7 +123,7 @@ RSpec.describe API::Root::CategoryApi::Categories, type: :request do
       it 'delete success' do
         beer.update_attributes(archived: true)
 
-        delete "#{url}/#{category.id}", headers: headers
+        delete "#{url}/#{category.id}", params: params
         expect(response).to have_http_status(200)
         expect(body['messages']).to eq(I18n.t('success'))
       end
