@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   belongs_to :role
+  has_many :messages
+  has_many :conversations, foreign_key: :sender_id
 
   validates :email, presence: true, length: { maximum: Settings.mail_max_length },
                     format: { with: VALID_EMAIL_REGEX },
