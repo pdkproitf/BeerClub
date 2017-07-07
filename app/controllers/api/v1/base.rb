@@ -16,6 +16,9 @@ module API
       mount API::V1::Beers
       mount API::V1::Passports
 
+      # actioncable
+      mount API::V1::Conversations
+
       add_swagger_documentation(
         api_version: 'v1',
         hide_doccumentation_path: false,
