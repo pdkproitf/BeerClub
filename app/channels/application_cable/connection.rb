@@ -11,7 +11,7 @@ module ApplicationCable
     protected
 
     def find_verified_user
-      current_user || reject_unauthorized_connection
+      current_user || current_customer || reject_unauthorized_connection
     end
   end
 end

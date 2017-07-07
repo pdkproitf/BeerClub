@@ -18,6 +18,7 @@ module API
 
       # actioncable
       mount API::V1::Conversations
+      mount API::V1::Messages
 
       add_swagger_documentation(
         api_version: 'v1',
