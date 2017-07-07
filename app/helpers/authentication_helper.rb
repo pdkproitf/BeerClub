@@ -6,7 +6,8 @@ module AuthenticationHelper
   def current_user
     # client_id = request.headers['Client']
     # token = request.headers['Access-Token']
-    token = params[:token]
+    params = params || request.params
+    token = params[:token] || request.params
     client_id = params[:client]
 
     @current_user = User.find_by("tokens ? '#{client_id}'")
