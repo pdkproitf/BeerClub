@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   belongs_to  :role
   has_many    :messages
   has_many    :conversations, foreign_key: :sender_id
-  has_one     :passport 
+  has_one     :passport
 
   validates :email, presence: true, length: { maximum: Settings.mail_max_length },
                     format: { with: VALID_EMAIL_REGEX },
