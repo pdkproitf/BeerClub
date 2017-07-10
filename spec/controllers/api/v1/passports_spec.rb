@@ -21,7 +21,6 @@ RSpec.describe 'Passports', type: :request do
 
         it "with customer role" do
           params = sign_customer
-          passport = @user.passport
           get "#{url}/#{passport.id}", params: params
 
           expect(response).to have_http_status(:success)
@@ -51,8 +50,8 @@ RSpec.describe 'Passports', type: :request do
       it "error without role" do
         get url
 
-        expect(response).to have_http_status(:unauthorized)
-        expect(body['error']).to eq(I18n.t('Unauthor'))
+        expect(response).to have_http_status(:not_acceptable)
+        expect(body['error']).to eq(I18n.t('authen_admin'))
       end
     end
   end

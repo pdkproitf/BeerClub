@@ -4,8 +4,8 @@ include Authenticate
 RSpec.describe 'Beers', type: :request do
 
   let(:url) { '/api/v1/beers' }
-  let!(:beer) { FactoryGirl.create :beer }
   let(:body) { JSON.parse(response.body) }
+  let!(:beer) { FactoryGirl.create :beer }
   let(:params) { sign_user }
 
   describe 'POST api/v1/beers' do
