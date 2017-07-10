@@ -30,3 +30,4 @@ en:
   access_denie: "Access Denie"
   beer_using: "Category constraint beers are using. You should archived "
   not_allow: "Not allow"
+  authen_admin: "Your account is not admin"

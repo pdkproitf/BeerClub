@@ -1,15 +1,11 @@
 module API
-  module V1
+  module V2
     class Sessions < Grape::API
       prefix  :api
-      version 'v1', using: :path
+      version 'v2', using: :path
       include API::V1::Default
 
       helpers do
-        def get_user(email)
-          params[:user][:admin_mode]? User.find_by(email: email) : Customer.find_by(email: email)
-        end
-
         # return login information to user.
         def sign_in_token_validation
           data  = @resource.token_validation_response.to_h
@@ -43,7 +39,7 @@ module API
           end
         end
         post '/sign-in' do
-          @resource = get_user(params['user'][:email])
+          @resource = User.find_by(email: params['user'][:email])
           if @resource and @resource.valid_password?(params['user']['password']) and
             (!@resource.respond_to?(:active_for_authentication?) or @resource.active_for_authentication?)
 
@@ -62,19 +58,18 @@ module API
             requires :uid, type: String, desc: "uid"
             requires :client,  type: String, desc: "client"
             requires :access_token,  type: String, desc: "access-token"
-            requires :admin_mode, type: Boolean, desc: 'mode access, true -> create admin account, false -> create customer account'
           end
         end
         post '/sign-out' do
-          @resource = get_user(params['user']['uid'])
+          @resource = User.find_by(email: params['user']['uid'])
           @client_id = params['user']['client']
           @token = params['user']['access_token']
 
           user = remove_instance_variable(:@resource) if @resource
           client_id = remove_instance_variable(:@client_id) if @client_id
+          token = remove_instance_variable(:@token) if @token
 
-          if user and client_id and user.tokens[client_id]['token'] == @token
-            remove_instance_variable(:@token) if @token
+          if user and client_id and user.valid_token?(token, client_id)
             user.tokens.delete(client_id)
             user.save!
             response I18n.t("devise.sessions.signed_out")

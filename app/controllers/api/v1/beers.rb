@@ -37,7 +37,7 @@ module API
         end
 
         before do
-          authenticated!
+          authenticated_admin!
         end
 
         desc 'create a beer'
