@@ -11,9 +11,9 @@ module API
       mount API::V2::Registrations
       mount API::V2::Sessions
       #
-      # mount API::V1::Categories
-      # mount API::V1::Beers
-      # mount API::V1::Passports
+      # mount API::V2::Categories
+      # mount API::V2::Beers
+      # mount API::V2::Passports
 
       # actioncable
       # mount API::V1::Conversations

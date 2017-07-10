@@ -1,6 +1,13 @@
 module AuthenticationHelper
+
+  # check true if user logined
   def authenticated!
     error!(I18n.t('Unauthor'), 401) unless current_user
+  end
+
+  # check true if user logined
+  def authenticated_admin!
+    error!(I18n.t('authen_admin'), 406) unless admin_request? 
   end
 
   # return current user if mode = true

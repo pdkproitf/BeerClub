@@ -32,13 +32,13 @@ module API
         end
 
         before do
-          authenticated!
+          authenticated_admin!
         end
 
         desc 'create new category' #, entity: Entities::UserEntities::Users
         params do
+          use :authentication_param
           requires :category, type: Hash do
-            use :authentication_param
             requires :name, type: String, desc: 'Category Namer'
           end
         end
