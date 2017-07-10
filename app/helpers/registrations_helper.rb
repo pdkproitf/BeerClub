@@ -20,8 +20,8 @@ module RegistrationsHelper
     end
   end
 
-  def add_role
-    role = Role.find_or_create_by(name: 'Admin')
+  def add_role(name = 'Admin')
+    role = Role.find_or_create_by(name: name)
     @resource.role_id = role.id
   end
 end

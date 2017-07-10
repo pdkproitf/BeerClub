@@ -1,8 +1,8 @@
 module API
-  module V1
+  module V2
     class Sessions < Grape::API
       prefix  :api
-      version 'v1', using: :path
+      version 'v2', using: :path
       include API::V1::Default
 
       helpers do

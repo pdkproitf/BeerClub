@@ -5,10 +5,9 @@ module API
 
       included do
         prefix 'api'
-        version 'v1', using: :path
         default_format :json
         format :json
-        
+
         helpers do
           params :authentication_param do
             optional :token, type: String, desc: 'authentication_token of the user. Example: lB8aDy7YUMcXTNH1uz_5fFTFfCo'

@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 role = Role.find_or_create_by!(name: 'Admin')
+role = Role.find_or_create_by!(name: 'Customer')
 
 User.create!(
   name: 'RyanPham',
