@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 role = Role.find_or_create_by!(name: 'Admin')
-role = Role.find_or_create_by!(name: 'Customer')
+role2 = Role.find_or_create_by!(name: 'Customer')
 
 User.create!(
   name: 'RyanPham',
@@ -17,11 +17,12 @@ User.create!(
   role_id: role.id)
 
 10.times do |index|
-  customer = Customer.create(
+  customer = User.create(
     name: "RyanPham #{index}",
     email: "ryanpham#{index}@gmail.com",
     password: "ryanpham#{index}",
-    password_confirmation: "ryanpham#{index}")
+    password_confirmation: "ryanpham#{index}",
+    role_id: role2.id)
   customer.create_passport(name: customer.name)
 end
 
