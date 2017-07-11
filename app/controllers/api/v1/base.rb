@@ -27,7 +27,11 @@ module API
         hide_format: true,
         info: {
           title: 'BEER CLUB'
-        }
+        },
+        models: [
+          API::Entities::UserEntities::Users,
+          API::Entities::UserEntities::UserLogins
+        ]
       )
     end
   end

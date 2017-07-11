@@ -37,6 +37,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'grape' #
 # create grape document                 *
 gem 'grape-swagger' #
+#  ruby code can be turned into JSON.   *
+gem 'swagger-blocks'
 # create swagger router                 *
 gem 'grape-swagger-rails' #
 # => disables the security feature of   *
@@ -52,7 +54,6 @@ gem 'grape-swagger-representable'           #
 # ****************************************
 # Config helps you easily manage environment specific settings in an easy and usable manner.
 gem 'config'
-
 # => using for login                    *
 gem 'devise_token_auth' #
 # => using for authenticate             *
@@ -62,8 +63,6 @@ gem 'omniauth' #
 gem 'rack-cors', require: 'rack/cors' #
 
 gem 'grape-active_model_serializers'
-
-gem 'swagger-blocks'
 
 gem 'rails_admin', '~> 1.2'
 # gem auto generate data

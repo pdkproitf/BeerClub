@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :role do
-    name Role.find_or_create_by(name: 'Admin').name
+    name  Faker::Name.unique.name
   end
 end

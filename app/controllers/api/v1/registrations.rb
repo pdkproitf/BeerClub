@@ -9,7 +9,13 @@ module API
 
       resource :users do
         # => /api/v1/users/
-        desc 'create new user' , entity: API::Entities::UserEntities::Users
+        desc 'create new user', {
+          entity: API::Entities::UserEntities::Users.documentation,
+          detail: '',
+          success:{ code: 201, message: I18n.t('success'), model: API::Entities::UserEntities::Users },
+          failure: [{ code: 401, message: I18n.t('Unauthor') } ,
+                    { code: 400, message: "Validation failed" }]
+        }
         params do
           requires :user, type: Hash do
             requires :name, type: String, desc: 'Name'
