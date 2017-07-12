@@ -29,7 +29,8 @@ module API
           title: 'BEER CLUB'
         },
         models: [
-          API::Entities::Users
+          API::Entities::Users, API::Entities::Categories,
+          API::Entities::Beers, API::Entities::Passports
         ]
       )
     end

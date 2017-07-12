@@ -11,13 +11,20 @@ module API
           authenticated!
         end
 
-        desc 'create new conversation'
+        desc 'create new conversation', {
+          detail: '',
+          is_array: true,
+          http_codes: [
+            { code: 404, message: I18n.t('Unauthor') },
+            { code: 201, message: I18n.t('success'), model: API::Entities::Conversations }
+          ]
+        }
         params do
           use :authentication_param
           requires :recipient_id, type: Integer, desc: 'id of recipient ex: 1'
         end
         post do
-          error!(I18n.t('not_allow'), 405) if params[:recipient_id] == @current_user.id
+          error!(I18n.t('not_allow'), 406) if params[:recipient_id] == @current_user.id
           conversation = Conversation.get(@current_user.id, params[:recipient_id])
           response(I18n.t('success'), ConversationSerializer.new(conversation))
         end

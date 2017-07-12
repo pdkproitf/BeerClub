@@ -14,6 +14,7 @@ module API
       resource :categories do
 
         desc 'get a category' , {
+          entity: API::Entities::Categories.documentation,
           detail: '',
           http_codes: [
             { code: 200, message: I18n.t('success'), model: API::Entities::CategoryBeers },

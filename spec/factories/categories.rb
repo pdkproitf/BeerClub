@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :category do
-    id      Faker::Number.digit
     name    Faker::Name.name
   end
 

@@ -18,7 +18,13 @@ module API
           authenticated!
         end
 
-        desc 'create new messages'
+        desc 'create new messages', {
+          detail: '',
+          http_codes: [
+            { code: 404, message: I18n.t('Unauthor') },
+            { code: 201, message: I18n.t('success'), model: API::Entities::Messages }
+          ]
+        }
         params do
           use :authentication_param
           requires :conversation_id, type: Integer, desc: 'id of conversation ex: 1'
