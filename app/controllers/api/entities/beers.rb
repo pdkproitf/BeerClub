@@ -8,7 +8,12 @@ module API
       expose :country, documentation: { type: 'string', values: [beer.country] }
       expose :price, documentation: { type: 'string', values: [beer.price] }
       expose :description, documentation: { type: 'string', values: [beer.description] }
-      expose :category_id, documentation: { type: 'string', values: [beer.category.id] }
+      expose :archived, documentation: { type: 'boolean', values: [false] }
+      expose :category, using: API::Entities::Categories
+    end
+
+    class BeersArchive < Beers
+      expose :archived, documentation: { type: 'boolean', values: [true] }
     end
   end
 end

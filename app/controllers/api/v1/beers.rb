@@ -19,7 +19,13 @@ module API
 
       resource :beers do
 
-        desc 'get a beer'
+        desc 'get a beer', {
+          detail: '',
+          http_codes: [
+            { code: 201, message: I18n.t('success'), model: API::Entities::Beers },
+            { code: 404, message: 'Not found' }
+          ]
+        }
         params do
           use :authentication_param
         end
@@ -28,7 +34,11 @@ module API
           response(I18n.t('success'), BeerSerializer.new(beer))
         end
 
-        desc 'get beers'
+        desc 'get beers', {
+          detail: '',
+          is_array: true,
+          http_codes: [{ code: 200, message: I18n.t('success'), model: API::Entities::Beers }]
+        }
         params do
           use :authentication_param
         end
@@ -40,7 +50,15 @@ module API
           authenticated_admin!
         end
 
-        desc 'create a beer'
+        desc 'create a beer', {
+          detail: '',
+          http_codes: [
+            { code: 201, message: I18n.t('success'), model: API::Entities::Beers },
+            { code: 400, message: "Validation failed" },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 406, message: I18n.t('authen_admin') }
+          ]
+        }
         params do
           use :authentication_param
           requires :beer, type: Hash do
@@ -60,7 +78,18 @@ module API
           response(I18n.t('success'), BeerSerializer.new(beer))
         end
 
-        desc 'edit a beer'
+        desc 'edit a beer', {
+          detail: '',
+          http_codes: [
+            { code: 200, message: I18n.t('success'), model: API::Entities::Beers },
+            { code: 400, message: [ I18n.t('already_archived', content: "Category"),
+                                    I18n.t('already_archived', content: "Beer"),
+                                    "Validation failed"] },
+            { code: 401, message: 'Not Found' },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 406, message: I18n.t('authen_admin') }
+          ]
+        }
         params do
           use :authentication_param
           requires :beer, type: Hash do
@@ -83,7 +112,15 @@ module API
           response(I18n.t('success'), BeerSerializer.new(beer))
         end
 
-        desc 'archived beer'
+        desc 'archived beer', {
+          detail: '',
+          http_codes: [
+            { code: 200, message: I18n.t('success'), model: API::Entities::BeersArchive },
+            { code: 400, message: I18n.t('already_archived', content: "Beer") },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 406, message: I18n.t('authen_admin') }
+          ]
+        }
         params do
           use :authentication_param
         end
@@ -95,7 +132,15 @@ module API
           response(I18n.t('success'), BeerSerializer.new(beer))
         end
 
-        desc 'unarchived beer'
+        desc 'unarchived beer', {
+          detail: '',
+          http_codes: [
+            { code: 200, message: I18n.t('success'), model: API::Entities::Beers },
+            { code: 400, message: I18n.t('not_archived', content: "Beer") },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 406, message: I18n.t('authen_admin') }
+          ]
+        }
         params do
           use :authentication_param
         end

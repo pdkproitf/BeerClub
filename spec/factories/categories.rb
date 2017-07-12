@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :category do
-    name {Faker::Name.name}
+    id      Faker::Number.digit
+    name    Faker::Name.name
   end
 
   factory :invalid_category, parent: :category do
