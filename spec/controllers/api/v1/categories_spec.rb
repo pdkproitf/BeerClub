@@ -107,7 +107,7 @@ RSpec.describe 'Categories', type: :request do
   end
 
   describe 'DELETE api/v1/categories/:id' do
-    let!(:beer) { FactoryGirl.create :beer }
+    let(:beer) { FactoryGirl.create(:beer, category: category) }
 
     context 'Delete a category' do
       before do

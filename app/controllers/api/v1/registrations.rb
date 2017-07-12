@@ -31,10 +31,9 @@ module API
 
             @resource = User.new(create_params)
             @resource.provider = 'email'
-
             User.transaction do
               add_role
-              save_user
+              save_user(@resource)
               response(I18n.t('success'), UserSerializer.new(@resource))
             end
           else
