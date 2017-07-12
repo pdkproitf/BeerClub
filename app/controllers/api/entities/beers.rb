@@ -9,6 +9,9 @@ module API
       expose :price, documentation: { type: 'string', values: [beer.price] }
       expose :description, documentation: { type: 'string', values: [beer.description] }
       expose :archived, documentation: { type: 'boolean', values: [false] }
+    end
+
+    class BeersCategory < Beers
       expose :category, using: API::Entities::Categories
     end
 

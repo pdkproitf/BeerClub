@@ -22,7 +22,7 @@ module API
         desc 'get a beer', {
           detail: '',
           http_codes: [
-            { code: 201, message: I18n.t('success'), model: API::Entities::Beers },
+            { code: 201, message: I18n.t('success'), model: API::Entities::BeersCategory },
             { code: 404, message: 'Not found' }
           ]
         }
@@ -37,7 +37,7 @@ module API
         desc 'get beers', {
           detail: '',
           is_array: true,
-          http_codes: [{ code: 200, message: I18n.t('success'), model: API::Entities::Beers }]
+          http_codes: [{ code: 200, message: I18n.t('success'), model: API::Entities::BeersCategory }]
         }
         params do
           use :authentication_param
@@ -53,7 +53,7 @@ module API
         desc 'create a beer', {
           detail: '',
           http_codes: [
-            { code: 201, message: I18n.t('success'), model: API::Entities::Beers },
+            { code: 201, message: I18n.t('success'), model: API::Entities::BeersCategory },
             { code: 400, message: "Validation failed" },
             { code: 401, message: I18n.t('Unauthor') },
             { code: 406, message: I18n.t('authen_admin') }
@@ -81,11 +81,11 @@ module API
         desc 'edit a beer', {
           detail: '',
           http_codes: [
-            { code: 200, message: I18n.t('success'), model: API::Entities::Beers },
+            { code: 200, message: I18n.t('success'), model: API::Entities::BeersCategory },
             { code: 400, message: [ I18n.t('already_archived', content: "Category"),
                                     I18n.t('already_archived', content: "Beer"),
                                     "Validation failed"] },
-            { code: 401, message: 'Not Found' },
+            { code: 404, message: 'Not Found' },
             { code: 401, message: I18n.t('Unauthor') },
             { code: 406, message: I18n.t('authen_admin') }
           ]
@@ -118,6 +118,7 @@ module API
             { code: 200, message: I18n.t('success'), model: API::Entities::BeersArchive },
             { code: 400, message: I18n.t('already_archived', content: "Beer") },
             { code: 401, message: I18n.t('Unauthor') },
+            { code: 404, message: 'Not Found' },
             { code: 406, message: I18n.t('authen_admin') }
           ]
         }
@@ -135,9 +136,10 @@ module API
         desc 'unarchived beer', {
           detail: '',
           http_codes: [
-            { code: 200, message: I18n.t('success'), model: API::Entities::Beers },
+            { code: 200, message: I18n.t('success'), model: API::Entities::BeersCategory },
             { code: 400, message: I18n.t('not_archived', content: "Beer") },
             { code: 401, message: I18n.t('Unauthor') },
+            { code: 404, message: 'Not Found' },
             { code: 406, message: I18n.t('authen_admin') }
           ]
         }
