@@ -11,7 +11,6 @@ module API
           data  = @resource.token_validation_response.to_h
           data.store('client', @client_id)
           data.store('token', @token)
-          data.store('passport', @resource.passport) unless params[:user][:admin_mode]
           data
         end
 
@@ -30,20 +29,22 @@ module API
 
       resource :users do
         # => /api/v1/users/
-        desc "sign-in", entity: API::Entities::UserEntities::UserLogins
+        desc "sign-in" do
+          entity API::Entities::UsersLogin.documentation
+          detail ''
+          success code: 201, message: I18n.t('devise.sessions.signed_in'), model: API::Entities::UsersLogin
+          failure [{ code: 500, message: I18n.t('devise_token_auth.sessions.bad_credentials') }]
+        end
         params do
           requires :user, type: Hash do
             requires :email, type: String, desc: "User's Email"
             requires :password,  type: String, desc: "password"
-            requires :admin_mode, type: Boolean, desc: 'mode access, true -> create admin account, false -> create customer account'
           end
         end
         post '/sign-in' do
           @resource = User.find_by(email: params['user'][:email])
           if @resource and @resource.valid_password?(params['user']['password']) and
             (!@resource.respond_to?(:active_for_authentication?) or @resource.active_for_authentication?)
-
-             error!(I18n.t('access_denie')) if params[:user][:admin_mode] && !@resource.admin?
 
             create_client_id_and_token
             response(I18n.t("devise.sessions.signed_in"), sign_in_token_validation)
@@ -52,7 +53,11 @@ module API
           end
         end
 
-        desc "sign-out" #, entity: Entities::ProductWithRoot
+        desc "sign-out" do
+          detail ''
+          success code: 201, message: I18n.t('devise.sessions.signed_out')
+          failure [{ code: 404, message: I18n.t('devise_token_auth.sessions.user_not_found') }]
+        end
         params do
           requires :user, type: Hash do
             requires :uid, type: String, desc: "uid"

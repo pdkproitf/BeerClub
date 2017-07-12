@@ -5,7 +5,8 @@ module RegistrationsHelper
       .permit(:name, :email, :password, :password_confirmation)
   end
 
-  def save_user
+  def save_user(user)
+    @resource ||= user
     if @resource.save!
       # email auth has been bypassed, authenticate user
       @client_id = SecureRandom.urlsafe_base64(nil, false)

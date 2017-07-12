@@ -2,9 +2,7 @@ FactoryGirl.define do
   temp = Faker::Internet.password(8)
 
   factory :user do
-    sequence :email do |n|
-    "#{n}#{Faker::Internet.email}"
-    end
+    email                 Faker::Internet.email
     name                  Faker::Name.unique.name
     password              temp
     password_confirmation temp

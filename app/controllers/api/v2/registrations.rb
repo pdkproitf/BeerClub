@@ -8,8 +8,14 @@ module API
       helpers RegistrationsHelper
 
       resource :users do
-        # => /api/v1/users/
-        desc 'create new user' , entity: API::Entities::UserEntities::Users
+        # => /api/v2/users/
+        desc 'create new user' do
+          entity API::Entities::Users.documentation
+          detail ''
+          success code: 201, message: I18n.t('success'), model: API::Entities::UsersPassports
+          failure [{ code: 401, message: I18n.t('Unauthor') } ,
+                   { code: 400, message: "Validation failed" }]
+        end
         params do
           use :authentication_param
           requires :user, type: Hash do

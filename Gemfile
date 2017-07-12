@@ -47,6 +47,7 @@ gem 'hashie-forbidden_attributes' #
 # ****************************************
 
 # ****************************************
+gem 'grape-entity'
 # For Grape::Entity ( https://github.com/ruby-grape/grape-entity )
 gem 'grape-swagger-entity'
 # For representable ( https://github.com/apotonick/representable )

@@ -13,7 +13,14 @@ module API
 
       resource :categories do
 
-        desc 'get a category' #, entity: Entities::UserEntities::Users
+        desc 'get a category' , {
+          entity: API::Entities::Categories.documentation,
+          detail: '',
+          http_codes: [
+            { code: 200, message: I18n.t('success'), model: API::Entities::CategoryBeers },
+            { code: 404, message: 'Not found' }
+          ]
+        }
         params do
           use :authentication_param
         end
@@ -22,7 +29,13 @@ module API
           response(I18n.t('success'), CategorySerializer.new(category))
         end
 
-        desc 'get all category' #, entity: Entities::UserEntities::Users
+        desc 'get all category', {
+          detail: '',
+          is_array: true,
+          http_codes: [
+            { code: 200, message: I18n.t('success'), model: API::Entities::CategoryBeers }
+          ]
+        }
         params do
           use :authentication_param
         end
@@ -35,7 +48,15 @@ module API
           authenticated_admin!
         end
 
-        desc 'create new category' #, entity: Entities::UserEntities::Users
+        desc 'create new category', {
+          detail: '',
+          http_codes: [
+            { code: 201, message: I18n.t('success'), model: API::Entities::CategoryBeers },
+            { code: 400, message: "Validation failed" },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 406, message: I18n.t('authen_admin') }
+          ]
+        }
         params do
           use :authentication_param
           requires :category, type: Hash do
@@ -47,7 +68,17 @@ module API
           response(I18n.t('success'), CategorySerializer.new(category))
         end
 
-        desc 'update a category' #, entity: Entities::UserEntities::Users
+        desc 'update a category' , {
+          detail: '',
+          http_codes: [
+            { code: 200, message: I18n.t('success'), model: API::Entities::CategoryBeers },
+            { code: 400, message: [ I18n.t('already_archived', content: "Category"),
+                                    " Validation failed"] },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 404, message: 'Not Found' },
+            { code: 406, message: I18n.t('authen_admin') }
+          ]
+        }
         params do
           use :authentication_param
           requires :category, type: Hash do
@@ -60,7 +91,16 @@ module API
           response(I18n.t('success'), CategorySerializer.new(category))
         end
 
-        desc 'archive a category' #, entity: Entities::UserEntities::Users
+        desc 'archive a category', {
+          detail: '',
+          http_codes: [
+            { code: 200, message: I18n.t('success'), model: API::Entities::CategoryArchived },
+            { code: 400, message: I18n.t('already_archived', content: "Beer") },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 404, message: 'Not Found' },
+            { code: 406, message: I18n.t('authen_admin') }
+          ]
+        }
         params do
           use :authentication_param
         end
@@ -73,7 +113,16 @@ module API
           response(I18n.t('success'), CategorySerializer.new(category))
         end
 
-        desc 'unarchive a category' #, entity: Entities::UserEntities::Users
+        desc 'unarchive a category' , {
+          detail: '',
+          http_codes: [
+            { code: 200, message: I18n.t('success'), model: API::Entities::CategoryBeers },
+            { code: 400, message: I18n.t('not_archived', content: "Beer") },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 404, message: 'Not Found' },
+            { code: 406, message: I18n.t('authen_admin') }
+          ]
+        }
         params do
           use :authentication_param
         end
@@ -85,7 +134,15 @@ module API
           response(I18n.t('success'), CategorySerializer.new(category))
         end
 
-        desc 'delete a category'
+        desc 'delete a category', {
+          detail: '',
+          http_codes: [
+            { code: 204, message: I18n.t('success') },
+            { code: 404, message: 'Not Found' },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 406, message: [I18n.t('beer_using')] }
+          ]
+        }
         params do
           use :authentication_param
         end
