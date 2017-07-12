@@ -4,7 +4,7 @@ FactoryGirl.define do
     name          { Faker::Name.name }
     country       { Faker::Address.country }
     price         { Faker::Number.decimal(2) }
-    description   { Faker::Lorem.paragraphs }
+    description   { Faker::Lorem.paragraph(2) }
     association :category, factory: :category
   end
 end

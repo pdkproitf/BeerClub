@@ -13,7 +13,15 @@ module API
       end
 
       resources :passports do
-        desc 'get passports'
+        desc 'get passports', {
+          is_array: true,
+          detail: '',
+          http_codes: [
+            { code: 200, message: I18n.t('success'), model: API::Entities::Passports },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 406, message: I18n.t('authen_admin') }
+          ]
+        }
         params do
           use :authentication_param
         end
@@ -29,7 +37,15 @@ module API
           error!(I18n.t('not_allow'), 406)  unless @current_user.admin? || @current_user.passport.id == @passport.id
         end
 
-        desc 'get passport inform'
+        desc 'get passport inform', {
+          detail: '',
+          http_codes: [
+            { code: 200, message: I18n.t('success'), model: API::Entities::PassportsBeer },
+            { code: 404, message: 'Not Found' },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 406, message: I18n.t('not_allow') }
+          ]
+        }
         params do
           use :authentication_param
         end
@@ -37,7 +53,15 @@ module API
           response(I18n.t('success'), PassportSerializer.new(@passport))
         end
 
-        desc 'add a beer to passport'
+        desc 'add a beer to passport', {
+          detail: '',
+          http_codes: [
+            { code: 201, message: I18n.t('success'), model: API::Entities::PassportsBeer },
+            { code: 404, message: 'Not Found' },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 406, message: I18n.t('not_allow') }
+          ]
+        }
         params do
           use :authentication_param
           requires :passport_id, type: Integer, desc: 'passport id'
@@ -49,13 +73,22 @@ module API
           response(I18n.t('success'), PassportBeerSerializer.new(passport_beer))
         end
 
-        desc 'remove a beer to passport'
+        desc 'remove a beer to passport', {
+          detail: '',
+          http_codes: [
+            { code: 204, message: I18n.t('success') },
+            { code: 404, message: 'Not Found' },
+            { code: 401, message: I18n.t('Unauthor') },
+            { code: 406, message: I18n.t('not_allow') }
+          ]
+        }
         params do
           use :authentication_param
           requires :passport_id, type: Integer, desc: 'passport id'
           requires :beer_id, type: Integer, desc: 'beer_id id'
         end
         delete 'beer' do
+          status 204
           beer = Beer.find(params[:beer_id])
           passport_beer =  @passport.passport_beers.find_by(beer_id: beer.id)
           error!(I18n.t('not_found', title: 'Beer on Passport'), 404) if passport_beer.blank?
