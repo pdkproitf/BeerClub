@@ -361,6 +361,7 @@ DEPENDENCIES
   faker
   grape
   grape-active_model_serializers
+  grape-entity
   grape-swagger
   grape-swagger-entity
   grape-swagger-rails

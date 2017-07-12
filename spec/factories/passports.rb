@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :passport do
     name  {Faker::Name.name}
-    association :customer, factory: :customer
+    association :user, factory: :user
   end
 end

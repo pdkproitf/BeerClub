@@ -10,10 +10,10 @@ module API
       resource :users do
         # => /api/v1/users/
         desc 'create new user', {
-          entity: API::Entities::UserEntities::Users.documentation,
+          entity: API::Entities::Users,
           detail: '',
-          success:{ code: 201, message: I18n.t('success'), model: API::Entities::UserEntities::Users },
-          failure: [{ code: 401, message: I18n.t('Unauthor') } ,
+          success:  { code: 201, message: I18n.t('success'), model: API::Entities::Users },
+          failure: [{ code: 401, message: I18n.t('Unauthor')  } ,
                     { code: 400, message: "Validation failed" }]
         }
         params do
@@ -41,7 +41,7 @@ module API
             @resource = Customer.new(create_params)
             @resource.provider = 'email'
             Customer.transaction do
-              save_user
+              save_user(@resource)
               response(I18n.t('success'), CustomerSerializer.new(@resource))
             end
           end
