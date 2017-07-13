@@ -1,7 +1,7 @@
 module API
   module Entities
     class Beers < Grape::Entity
-      beer = FactoryGirl.build(:beer)
+      beer = FactoryGirl.build(:beer, name: Faker::Name.unique.name)
       expose :id, documentation: { type: 'string', values: [Faker::Number.digit] }
       expose :name, documentation: { type: 'string', values: [beer.name] }
       expose :price, documentation: { type: 'string', values: [beer.price] }

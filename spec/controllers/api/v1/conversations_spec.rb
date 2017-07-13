@@ -15,7 +15,7 @@ RSpec.describe 'Conversations', type: :request do
 
       it 'get a conversation if conversation exist' do
         params.merge!(recipient_id: recipient.id)
-        Conversation.create!(sender_id: User.last.id, recipient_id: recipient.id)
+        Conversation.create!(sender_id: @user.id, recipient_id: recipient.id)
         post url, params: params
 
         expect(response).to have_http_status(:success)

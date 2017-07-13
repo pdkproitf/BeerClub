@@ -1,7 +1,7 @@
 module API
   module Entities
     class Categories < Grape::Entity
-      category = FactoryGirl.build(:category)
+      category = FactoryGirl.build(:category, name: Faker::Name.unique.name)
       expose :id, documentation: { type: 'string', values: [Faker::Number.digit] }
       expose :name, documentation: { type: 'string', values: [category.name] }
       expose :archived, documentation: { type: 'boolean', values: [false] }
