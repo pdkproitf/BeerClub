@@ -8,7 +8,7 @@
 5. run `rails db:test:prepare`
 6. uncomment on part 2.
 7. run `rspec`
-8. run 'rails server'
+8. run `rails server`
 
 perfec ! :D 
 Good Luck
