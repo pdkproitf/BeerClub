@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :role do
-    name  Faker::Name.unique.name
+    name { Faker::Name.name }
   end
 end

@@ -1,11 +1,9 @@
 module API
   module Entities
     class Users < Grape::Entity
-      user = FactoryGirl.build(:user, email: Faker::Internet.email, role: Role.find_or_create_by(name: 'Admin'))
-
       expose  :id, documentation: { type: 'integer', values: [Faker::Number.digit] }
-      expose  :name, documentation: { type: 'string', values: [user.name] }
-      expose  :email, documentation: { type: 'string', values: [user.email] }
+      expose  :name, documentation: { type: 'string', values: [Faker::Name.name] }
+      expose  :email, documentation: { type: 'string', values: [Faker::Internet.email] }
       # expose  :password, documentation: { type: 'string', values: [user.password] }
       # expose  :password_confirmation, documentation: { type: 'string', values: [user.password] }
     end

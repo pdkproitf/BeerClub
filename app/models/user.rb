@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # after_create :send_confirmation_email
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  belongs_to  :role
+  belongs_to  :role, optional: true
   has_many    :messages
   has_many    :conversations, foreign_key: :sender_id
   has_one     :passport
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
                       length: { minimum: Settings.password_min_length }
 
   before_save :downcase_email
-  after_create :add_passport, if: :customer?
+  after_create :add_passport
 
   def admin?
     role.name == 'Admin'

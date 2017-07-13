@@ -23,7 +23,6 @@ User.create!(
     password: "ryanpham#{index}",
     password_confirmation: "ryanpham#{index}",
     role_id: role2.id)
-  customer.create_passport(name: customer.name)
 end
 
 category = Category.create!(name: 'Ales')
