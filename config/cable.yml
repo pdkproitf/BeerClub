@@ -6,8 +6,4 @@ test:
 
 production:
   adapter: redis
-<<<<<<< HEAD
-  url: redis://redis-17933.c10.us-east-1-2.ec2.cloud.redislabs.com:17933
-=======
   url: redis://redis-12653.c8.us-east-1-4.ec2.cloud.redislabs.com:12653
->>>>>>> 21b24f8... change redislab link
