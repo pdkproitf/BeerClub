@@ -5,11 +5,11 @@
         1,
         1,
         1,
-        1,
-        1,
-        1,
-        1,
-        1,
+        19,
+        19,
+        19,
+        19,
+        19,
         null,
         null
       ],
@@ -347,15 +347,13 @@
         1,
         1,
         1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
         null,
         null,
         1,
@@ -850,7 +848,7 @@
         null,
         1,
         2,
-        2,
+        4,
         1,
         null,
         null,
@@ -1947,17 +1945,13 @@
         null,
         null,
         1,
-        63,
-        null,
-        null,
-        1,
         null,
         1,
         104,
         null,
         null,
         1,
-        2,
+        63,
         null,
         null
       ],
@@ -2020,6 +2014,16 @@
         1,
         null
       ],
+      "/home/ces/Desktop/ror/BeerClub/app/models/passport.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null
+      ],
       "/home/ces/Desktop/ror/BeerClub/app/serializers/beer_serializer.rb": [
         1,
         1,
@@ -2060,16 +2064,6 @@
         1,
         1,
         2,
-        null
-      ],
-      "/home/ces/Desktop/ror/BeerClub/app/models/passport.rb": [
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
         null
       ],
       "/home/ces/Desktop/ror/BeerClub/app/serializers/passport_serializer.rb": [
@@ -2119,6 +2113,6 @@
         null
       ]
     },
-    "timestamp": 1499938613
+    "timestamp": 1499945012
   }
 }
