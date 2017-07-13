@@ -9,9 +9,9 @@
 
 
 heroku server: `https://beerclub-rails5.herokuapp.com/`
-  database admin `https://beerclub-rails5.herokuapp.com/admin`
-  document: `https://beerclub-rails5.herokuapp.com/documentation`
-  test: `https://beerclub-rails5.herokuapp.com/coverage/index.html#_AllFiles`
+database admin `https://beerclub-rails5.herokuapp.com/admin`
+document: `https://beerclub-rails5.herokuapp.com/documentation`
+Rspec test: `https://beerclub-rails5.herokuapp.com/coverage/index.html#_AllFiles`
 front end: `https://github.com/pdkproitf/BeerClubFront`
 
 
