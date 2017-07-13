@@ -38,7 +38,7 @@ module API
 
           User.transaction do
             add_role(role_name)
-            save_user
+            save_user(@resource)
             response(I18n.t('success'), UserSerializer.new(@resource))
           end
         end

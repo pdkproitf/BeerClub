@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  subject { FactoryGirl.build :user }
+  subject { FactoryGirl.build(:user, role: Role.find_or_create_by(name: 'Admin')) }
 
   describe 'validation' do
     context 'is invalid with invalid attributes' do

@@ -86,9 +86,7 @@ RSpec.describe 'Passports', type: :request do
       it "success" do
         passport.passport_beers.create(beer_id: beer.id)
         delete url, params: params
-
         expect(response).to have_http_status(:success)
-        expect(body['messages']).to eq(I18n.t('success'))
       end
 
       it "error not found beer on passport" do

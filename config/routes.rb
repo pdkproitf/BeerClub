@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # devise_for :users
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  mount GrapeSwaggerRails::Engine => '/swagger'
+  mount GrapeSwaggerRails::Engine => '/documentation'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # mount API::V1::Base => '/'
   mount API::ApiConstraint => '/'

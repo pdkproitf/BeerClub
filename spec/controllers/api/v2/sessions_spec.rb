@@ -4,11 +4,11 @@ include Authenticate
 RSpec.describe 'Sessions', type: :request do
 
   describe 'POST' do
-    let(:user) { FactoryGirl.create(:user, role: Role.find_or_create_by(name: 'Admin')) }
+    let(:user) { FactoryGirl.create(:user) }
     let(:body) { JSON.parse(response.body) }
 
     context 'sign-in' do
-      let(:url) { '/api/v1/users/sign-in' }
+      let(:url) { '/api/v2/users/sign-in' }
 
       it 'wrong credentials' do
         params = { user: { email: user.email, password: 'wrong_password', admin_mode: true } }
@@ -27,15 +27,11 @@ RSpec.describe 'Sessions', type: :request do
     end
 
     context 'sign-out' do
-      let(:url) { '/api/v1/users/sign-out' }
+      let(:url) { '/api/v2/users/sign-out' }
       let(:params) { { user: sign_user } }
 
-      before do
-        params[:user].merge!(uid: @user.email)
-        params[:user].merge!(admin_mode: true)
-      end
-
       it 'wrong credentials' do
+        params[:user].merge!(uid: 'wrong uid')
         params[:user].merge!(access_token: 'wrong Access token')
         post url, params: params
 
@@ -44,7 +40,8 @@ RSpec.describe 'Sessions', type: :request do
       end
 
       it 'right credentials' do
-        params[:user].merge!(access_token: @user.tokens[params[:user][:client]]["token"])
+        params[:user].merge!(uid: @user.email)
+        params[:user].merge!(access_token: params[:user][:token])
         post url, params: params
 
         expect(response).to have_http_status(201)

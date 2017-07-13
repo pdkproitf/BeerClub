@@ -31,3 +31,4 @@ en:
   beer_using: "Category constraint beers are using. You should archived "
   not_allow: "Not allow"
   authen_admin: "Your account is not admin"
+  chat_them_self: "Recipienter can't be equal with Sender"

@@ -16,7 +16,7 @@ RSpec.describe Category, type: :model do
 
   describe 'function' do
     context '#using?' do
-      let(:beer) { FactoryGirl.create :beer }
+      let(:beer) { FactoryGirl.create(:beer, category: subject) }
       before do
         subject.save
         beer.update_attributes(category_id: subject.id)
