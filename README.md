@@ -14,7 +14,7 @@
 - Rspec test: `https://beerclub-rails5.herokuapp.com/coverage/index.html#_AllFiles`
 - front end: `https://github.com/pdkproitf/BeerClubFront`
 
-
+6. Account
 - Admin account (click on `login`): `ryanpham@gmail.com` password: `Aa123456!`
 - Customer account (click on `see my passport`): `vadus.by@gmail.com`, password: `Aa123456!`
 
