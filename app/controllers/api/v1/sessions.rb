@@ -34,7 +34,7 @@ module API
 
       resource :users do
         # => /api/v1/users/
-        desc "sign-in" do
+        desc 'sign-in' do
           entity API::Entities::UsersLogin.documentation
           detail ''
           success code: 201, message: I18n.t('devise.sessions.signed_in'), model: API::Entities::UsersLogin
@@ -42,8 +42,8 @@ module API
         end
         params do
           requires :user, type: Hash do
-            requires :email, type: String, desc: "User's Email"
-            requires :password,  type: String, desc: "password"
+            requires :email, type: String, desc: 'user\'s email'
+            requires :password,  type: String, desc: 'password'
             requires :admin_mode, type: Boolean, desc: 'mode access, true -> create admin account, false -> create customer account'
           end
         end
@@ -55,22 +55,22 @@ module API
              error!(I18n.t('access_denie')) if params[:user][:admin_mode] && !@resource.admin?
 
             create_client_id_and_token
-            response(I18n.t("devise.sessions.signed_in"), sign_in_token_validation)
+            response(I18n.t('devise.sessions.signed_in'), sign_in_token_validation)
           else
-            error!(I18n.t("devise_token_auth.sessions.bad_credentials"), 500)
+            error!(I18n.t('devise_token_auth.sessions.bad_credentials'), 500)
           end
         end
 
-        desc "sign-out" do
+        desc 'sign-out' do
           detail ''
           success code: 201, message: I18n.t('devise.sessions.signed_out')
           failure [{ code: 404, message: I18n.t('devise_token_auth.sessions.user_not_found') }]
         end
         params do
           requires :user, type: Hash do
-            requires :uid, type: String, desc: "uid"
-            requires :client,  type: String, desc: "client"
-            requires :access_token,  type: String, desc: "access-token"
+            requires :uid, type: String, desc: 'uid'
+            requires :client,  type: String, desc: 'client'
+            requires :access_token,  type: String, desc: 'access-token'
             requires :admin_mode, type: Boolean, desc: 'mode access, true -> create admin account, false -> create customer account'
           end
         end
@@ -86,9 +86,9 @@ module API
             remove_instance_variable(:@token) if @token
             user.tokens.delete(client_id)
             user.save!
-            response I18n.t("devise.sessions.signed_out")
+            response I18n.t('devise.sessions.signed_out')
           else
-            error!(I18n.t("devise_token_auth.sessions.user_not_found"), 404)
+            error!(I18n.t('devise_token_auth.sessions.user_not_found'), 404)
           end
         end
       end

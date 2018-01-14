@@ -52,7 +52,7 @@ module API
           detail: '',
           http_codes: [
             { code: 201, message: I18n.t('success'), model: API::Entities::CategoryBeers },
-            { code: 400, message: "Validation failed" },
+            { code: 400, message: 'Validation failed' },
             { code: 401, message: I18n.t('Unauthor') },
             { code: 406, message: I18n.t('authen_admin') }
           ]
@@ -72,8 +72,8 @@ module API
           detail: '',
           http_codes: [
             { code: 200, message: I18n.t('success'), model: API::Entities::CategoryBeers },
-            { code: 400, message: [ I18n.t('already_archived', content: "Category"),
-                                    " Validation failed"] },
+            { code: 400, message: [ I18n.t('already_archived', content: 'Category'),
+                                    'Validation failed'] },
             { code: 401, message: I18n.t('Unauthor') },
             { code: 404, message: 'Not Found' },
             { code: 406, message: I18n.t('authen_admin') }
@@ -95,7 +95,7 @@ module API
           detail: '',
           http_codes: [
             { code: 200, message: I18n.t('success'), model: API::Entities::CategoryArchived },
-            { code: 400, message: I18n.t('already_archived', content: "Beer") },
+            { code: 400, message: I18n.t('already_archived', content: 'Beer') },
             { code: 401, message: I18n.t('Unauthor') },
             { code: 404, message: 'Not Found' },
             { code: 406, message: I18n.t('authen_admin') }
@@ -107,7 +107,7 @@ module API
         put ':id/archive' do
           category = Category.find(params[:id])
           error!(I18n.t('not_found', title: 'Category'), 404) if category.blank?
-          error!(I18n.t('already_archived', content: "Category")) if category.archived
+          error!(I18n.t('already_archived', content: 'Category')) if category.archived
 
           category.update_attributes!(archived: true)
           response(I18n.t('success'), CategorySerializer.new(category))
@@ -117,7 +117,7 @@ module API
           detail: '',
           http_codes: [
             { code: 200, message: I18n.t('success'), model: API::Entities::CategoryBeers },
-            { code: 400, message: I18n.t('not_archived', content: "Beer") },
+            { code: 400, message: I18n.t('not_archived', content: 'Beer') },
             { code: 401, message: I18n.t('Unauthor') },
             { code: 404, message: 'Not Found' },
             { code: 406, message: I18n.t('authen_admin') }
@@ -128,7 +128,7 @@ module API
         end
         put ':id/unarchive' do
           category = Category.find(params[:id])
-          error!(I18n.t('not_archived', content: "Category")) unless category.archived
+          error!(I18n.t('not_archived', content: 'Category')) unless category.archived
 
           category.update_attributes!(archived: false)
           response(I18n.t('success'), CategorySerializer.new(category))

@@ -54,7 +54,7 @@ module API
           detail: '',
           http_codes: [
             { code: 201, message: I18n.t('success'), model: API::Entities::BeersCategory },
-            { code: 400, message: "Validation failed" },
+            { code: 400, message: 'Validation failed' },
             { code: 401, message: I18n.t('Unauthor') },
             { code: 406, message: I18n.t('authen_admin') }
           ]
@@ -72,7 +72,7 @@ module API
         end
         post do
           category = Category.find(params[:beer][:category_id])
-          error!(I18n.t('already_archived', content: "Category"), 400) if category.archived
+          error!(I18n.t('already_archived', content: 'Category'), 400) if category.archived
 
           beer = category.beers.create!(beer_params)
           response(I18n.t('success'), BeerSerializer.new(beer))
@@ -82,9 +82,9 @@ module API
           detail: '',
           http_codes: [
             { code: 200, message: I18n.t('success'), model: API::Entities::BeersCategory },
-            { code: 400, message: [ I18n.t('already_archived', content: "Category"),
-                                    I18n.t('already_archived', content: "Beer"),
-                                    "Validation failed"] },
+            { code: 400, message: [ I18n.t('already_archived', content: 'Category'),
+                                    I18n.t('already_archived', content: 'Beer'),
+                                    'Validation failed'] },
             { code: 404, message: 'Not Found' },
             { code: 401, message: I18n.t('Unauthor') },
             { code: 406, message: I18n.t('authen_admin') }
@@ -103,10 +103,10 @@ module API
         end
         put ':id' do
           category = Category.find(params[:beer][:category_id])
-          error!(I18n.t('already_archived', content: "Category")) if category.archived
+          error!(I18n.t('already_archived', content: 'Category')) if category.archived
 
           beer = beers.find(params[:id])
-          error!(I18n.t('already_archived', content: "Beer")) if beer.archived
+          error!(I18n.t('already_archived', content: 'Beer')) if beer.archived
 
           beer.update_attributes!(beer_params)
           response(I18n.t('success'), BeerSerializer.new(beer))
@@ -116,7 +116,7 @@ module API
           detail: '',
           http_codes: [
             { code: 200, message: I18n.t('success'), model: API::Entities::BeersArchive },
-            { code: 400, message: I18n.t('already_archived', content: "Beer") },
+            { code: 400, message: I18n.t('already_archived', content: 'Beer') },
             { code: 401, message: I18n.t('Unauthor') },
             { code: 404, message: 'Not Found' },
             { code: 406, message: I18n.t('authen_admin') }
@@ -127,7 +127,7 @@ module API
         end
         put ':id/archive' do
           beer = Beer.find(params[:id])
-          error!(I18n.t('already_archived', content: "Beer")) if beer.archived
+          error!(I18n.t('already_archived', content: 'Beer')) if beer.archived
 
           beer.update_attributes!(archived: true)
           response(I18n.t('success'), BeerSerializer.new(beer))
@@ -137,7 +137,7 @@ module API
           detail: '',
           http_codes: [
             { code: 200, message: I18n.t('success'), model: API::Entities::BeersCategory },
-            { code: 400, message: I18n.t('not_archived', content: "Beer") },
+            { code: 400, message: I18n.t('not_archived', content: 'Beer') },
             { code: 401, message: I18n.t('Unauthor') },
             { code: 404, message: 'Not Found' },
             { code: 406, message: I18n.t('authen_admin') }
@@ -148,22 +148,22 @@ module API
         end
         put ':id/unarchive' do
           beer = Beer.find(params[:id])
-          error!(I18n.t('not_archived', content: "Beer")) unless beer.archived
+          error!(I18n.t('not_archived', content: 'Beer')) unless beer.archived
 
           beer.update_attributes!(archived: false)
           response(I18n.t('success'), BeerSerializer.new(beer))
         end
 
-        # desc 'delete a beer'
-        # delete ':id' do
-        #   beer = @current_member.bar.beers.find(params[:id])
-        #   error!(I18n.t('not_found', title: 'Category'), 404) if beer.blank?
-        #
-        #   beer.destroy!
-        #
-        #   status 200
-        #   response(I18n.t('success'))
-        # end
+        desc 'delete a beer'
+        delete ':id' do
+          beer = @current_member.bar.beers.find(params[:id])
+          error!(I18n.t('not_found', title: 'Category'), 404) if beer.blank?
+
+          beer.destroy!
+
+          status 200
+          response(I18n.t('success'))
+        end
       end
     end
   end
