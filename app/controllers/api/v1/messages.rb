@@ -19,7 +19,7 @@ module API
         end
 
         desc 'create new messages', {
-          detail: '',
+          detail: 'send message',
           http_codes: [
             { code: 404, message: I18n.t('Unauthor') },
             { code: 201, message: I18n.t('success'), model: API::Entities::Messages }
