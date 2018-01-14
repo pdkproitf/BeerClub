@@ -55,3 +55,5 @@ You don't need to do this for the assignment, but if you have time, you get bonu
 - There should be an API for a Customer to add a beer to their passport once they've consumed it.
 
 - When a Customer retrieves the list of beers, it should include all the ones they’ve consumed, as well as all beers that are available that they haven't tried yet.
+
+## Implement actioncable to create conversation between members
