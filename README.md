@@ -15,5 +15,9 @@
 - front end: `https://github.com/pdkproitf/BeerClubFront`
 
 
+- Admin account (click on `login`): `ryanpham@gmail.com` password: `Aa123456!`
+- Customer account (click on `see my passport`): `vadus.by@gmail.com`, password: `Aa123456!`
+
+
 perfec ! :D 
 Good Luck
