@@ -21,3 +21,14 @@
 
 en:
   hello: "Hello world"
+  success: 'Success'
+  already:  "%{content} already exist"
+  already_archived:  "%{content} already archived"
+  not_archived:  "%{content} doesn't archived"
+  not_found: "%{title} not found"
+  Unauthor: "Unauthorized"
+  access_denie: "Access Denie"
+  beer_using: "Category constraint beers are using. You should archived "
+  not_allow: "Not allow"
+  authen_admin: "Your account is not admin"
+  chat_them_self: "Recipienter can't be equal with Sender"

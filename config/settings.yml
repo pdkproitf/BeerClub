@@ -1,0 +1,4 @@
+mail_max_length: 255
+password_min_length: 6
+name_min_length: 4
+number_min_value: 0
