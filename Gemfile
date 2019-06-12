@@ -65,7 +65,7 @@ gem 'rack-cors', require: 'rack/cors' #
 
 gem 'grape-active_model_serializers'
 
-gem 'rails_admin', '~> 1.2'
+gem 'rails_admin', '~> 1.4', '>= 1.4.0'
 # gem auto generate data
 gem 'faker'
 group :development, :test do
