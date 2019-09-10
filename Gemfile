@@ -56,7 +56,7 @@ gem 'grape-swagger-representable'           #
 # Config helps you easily manage environment specific settings in an easy and usable manner.
 gem 'config'
 # => using for login                    *
-gem 'devise_token_auth' #
+gem 'devise_token_auth' , '>= 1.1.2' #
 # => using for authenticate             *
 gem 'omniauth' #
 # => using for get JSON  whren your API *
