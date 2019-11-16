@@ -61,7 +61,7 @@ gem 'devise_token_auth' #
 gem 'omniauth' #
 # => using for get JSON  whren your API *
 # => and client on different domain     *
-gem 'rack-cors', require: 'rack/cors' #
+gem 'rack-cors', '1.0.5' #
 
 gem 'grape-active_model_serializers'
 
