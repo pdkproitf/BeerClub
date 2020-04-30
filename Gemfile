@@ -81,7 +81,7 @@ group :development, :test do
   gem 'guard-rspec', require: false
   # using to clean data when test finish
   gem 'database_cleaner'
-  gem 'simplecov', :require => false, :group => :test
+  gem 'simplecov', '>= 0.14.1', :require => false, :group => :test
 end
 
 group :development do
