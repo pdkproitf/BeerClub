@@ -58,7 +58,7 @@ gem 'config'
 # => using for login                    *
 gem 'devise_token_auth' #
 # => using for authenticate             *
-gem 'omniauth' #
+gem 'omniauth' , '>= 2.0.0' #
 # => using for get JSON  whren your API *
 # => and client on different domain     *
 gem 'rack-cors', require: 'rack/cors' #
