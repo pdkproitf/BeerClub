@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.4'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.5'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -56,7 +56,7 @@ gem 'grape-swagger-representable'           #
 # Config helps you easily manage environment specific settings in an easy and usable manner.
 gem 'config'
 # => using for login                    *
-gem 'devise_token_auth' #
+gem 'devise_token_auth' , '>= 1.1.1' #
 # => using for authenticate             *
 gem 'omniauth' #
 # => using for get JSON  whren your API *
@@ -65,7 +65,7 @@ gem 'rack-cors', require: 'rack/cors' #
 
 gem 'grape-active_model_serializers'
 
-gem 'rails_admin', '~> 1.2'
+gem 'rails_admin', '~> 2.0', '>= 2.0.0'
 # gem auto generate data
 gem 'faker'
 group :development, :test do
