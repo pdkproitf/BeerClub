@@ -144,7 +144,7 @@ GEM
     haml (5.0.1)
       temple (>= 0.8.0)
       tilt
-    hashie (3.5.5)
+    hashie (5.0.0)
     hashie-forbidden_attributes (0.1.1)
       hashie (>= 3.0)
     i18n (0.8.4)
@@ -199,9 +199,10 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    omniauth (1.6.1)
-      hashie (>= 3.4.6, < 3.6.0)
-      rack (>= 1.6.2, < 3)
+    omniauth (2.1.0)
+      hashie (>= 3.4.6)
+      rack (>= 2.2.3)
+      rack-protection
     orm_adapter (0.5.0)
     pg (0.21.0)
     pry (0.10.4)
@@ -212,13 +213,15 @@ GEM
       byebug (~> 9.0)
       pry (~> 0.10)
     puma (3.9.1)
-    rack (2.0.3)
+    rack (2.2.4)
     rack-accept (0.4.5)
       rack (>= 0.4)
     rack-cors (0.4.1)
     rack-pjax (1.0.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
+    rack-protection (2.2.2)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.4)
@@ -372,7 +375,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
-  omniauth
+  omniauth (>= 2.0.0)
   pg (~> 0.21.0)
   pry-byebug
   puma (~> 3.0)
@@ -394,4 +397,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.1
+   1.17.3
