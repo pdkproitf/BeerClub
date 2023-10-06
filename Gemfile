@@ -63,7 +63,7 @@ gem 'omniauth' #
 # => and client on different domain     *
 gem 'rack-cors', require: 'rack/cors' #
 
-gem 'grape-active_model_serializers'
+gem 'grape-active_model_serializers', '>= 1.5.2'
 
 gem 'rails_admin', '~> 1.2'
 # gem auto generate data
