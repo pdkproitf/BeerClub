@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.4'
+gem 'rails', '~> 7.1.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -65,7 +65,7 @@ gem 'rack-cors', require: 'rack/cors' #
 
 gem 'grape-active_model_serializers'
 
-gem 'rails_admin', '~> 1.2'
+gem 'rails_admin', '~> 3.0', '>= 3.0.0'
 # gem auto generate data
 gem 'faker'
 group :development, :test do
