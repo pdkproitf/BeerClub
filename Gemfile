@@ -71,7 +71,7 @@ gem 'faker'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 3.6.0'
+  gem 'rspec-rails', '~> 8.0.0'
   # help your app run on background, make test faster
   gem 'spring-commands-rspec'
   # lets you express expected outcomes on collections of an object in an example.
